@@ -4572,4 +4572,8 @@ figure {
   #w-node-e102c587-55ca-fac2-ae28-315e8323797a-66a5978b, #w-node-_75b07900-52cb-cc69-eea6-369785d7bfdd-66a5978b, #w-node-_40be7df2-c39e-4e98-adff-d5ff37f5bcac-66a5978b, #w-node-_53b227ec-d4ab-f7c6-ca5a-8df9f67e081c-66a5978b, #w-node-_7914a856-6c58-dd96-0153-c1d9f4f61ff3-66a5978b, #w-node-_05ea4606-3b08-c392-43c0-1669de0d0240-415e8ac2 {
     grid-area: span 1 / span 2 / span 1 / span 2;
   }
+  @media (max-width: 479px) {
+  lottie-player.lottie-homepage {
+    margin-top: 55px;
+  }
 }
