@@ -640,15 +640,15 @@
       type="text/javascript"
     ></script>
     <script>
-document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('load', function() {
     const player = document.querySelector('lottie-player.lottie-homepage');
-    player.addEventListener('complete', function() {
+    player.removeAttribute('loop');
+    player.addEventListener('lottie-complete', function() {
         setTimeout(function() {
+            player.seek(0);
             player.play();
         }, 1000);
     });
-    // Rimuovi il loop automatico
-    player.removeAttribute('loop');
 });
 </script>
   </body>
