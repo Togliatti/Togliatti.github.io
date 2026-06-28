@@ -644,12 +644,10 @@ window.addEventListener('load', function() {
     const player = document.querySelector('lottie-player.lottie-homepage');
     player.removeAttribute('loop');
     
-    // Durata animazione in ms + pausa di 1 secondo
-    const durata = (3.55 * 1000) + 1000; // 3.55 secondi è il data-default-duration
+    const durata = (3.55 * 1000) + 1000;
     
     setInterval(function() {
-        player.seek(0);
-        player.play();
+        player.load('../cdn.prod.website-files.com/60a9b5241b55443606bfa800/6299fb1d181d59fa924990e6_JijoJeison.json');
     }, durata);
 });
 </script>
