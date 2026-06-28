@@ -2413,7 +2413,6 @@ figure {
 }
 
 .image-inside-grid {
-  filter: grayscale();
   object-fit: cover;
   object-position: 50% 0%;
   width: 100%;
