@@ -644,14 +644,13 @@ window.addEventListener('load', function() {
     const player = document.querySelector('lottie-player.lottie-homepage');
     player.removeAttribute('loop');
     
-    function playWithPause() {
+    // Durata animazione in ms + pausa di 1 secondo
+    const durata = (3.55 * 1000) + 1000; // 3.55 secondi è il data-default-duration
+    
+    setInterval(function() {
         player.seek(0);
         player.play();
-    }
-    
-    player.addEventListener('lottie-complete', function() {
-        setTimeout(playWithPause, 1000);
-    });
+    }, durata);
 });
 </script>
   </body>
