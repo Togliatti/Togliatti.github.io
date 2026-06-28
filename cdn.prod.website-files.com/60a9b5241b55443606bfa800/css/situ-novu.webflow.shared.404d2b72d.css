@@ -2449,9 +2449,7 @@ figure {
   filter: invert();
 }
 
-.image-inside-grid.bianconero {
-  filter: grayscale();
-}
+
 
 .image-inside-grid.tesio {
   object-position: 50% 100%;
