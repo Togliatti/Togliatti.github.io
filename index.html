@@ -643,11 +643,14 @@
 window.addEventListener('load', function() {
     const player = document.querySelector('lottie-player.lottie-homepage');
     player.removeAttribute('loop');
+    
+    function playWithPause() {
+        player.seek(0);
+        player.play();
+    }
+    
     player.addEventListener('lottie-complete', function() {
-        setTimeout(function() {
-            player.seek(0);
-            player.play();
-        }, 1000);
+        setTimeout(playWithPause, 1000);
     });
 });
 </script>
