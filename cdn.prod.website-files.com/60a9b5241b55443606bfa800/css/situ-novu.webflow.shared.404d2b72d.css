@@ -794,7 +794,7 @@ textarea.w-input, textarea.w-select {
 
 .menutext.w--current {
   border-bottom: 5px solid #31477371;
-  padding-bottom: 2px;
+  padding-bottom: 20px;
 }
 
 @media screen and (max-width: 991px) {
