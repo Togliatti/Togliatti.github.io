@@ -3828,6 +3828,10 @@ figure {
     top: 220px;
     overflow: clip;
   }
+    .menutext.w--current {
+    border-bottom: 5px solid #000;
+    padding-bottom: 4px;
+  }
 }
 
 #w-node-_74caf7b7-b059-73ac-3564-5f0250ab174d-ab280f73, #w-node-df5ece8e-6007-5cee-2c54-6b2e8758df11-ab280f73 {
@@ -4575,8 +4579,4 @@ figure {
   lottie-player.lottie-homepage {
     margin-top: 55px;
   }
-  .menutext.w--current {
-  border-bottom: 5px solid #000;
-  padding-bottom: 4px;
-}
 }
