@@ -4575,4 +4575,8 @@ figure {
   lottie-player.lottie-homepage {
     margin-top: 55px;
   }
+  .menutext.w--current {
+  border-bottom: 5px solid #000;
+  padding-bottom: 4px;
+}
 }
