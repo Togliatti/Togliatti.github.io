@@ -793,8 +793,8 @@ textarea.w-input, textarea.w-select {
 }
 
 .menutext.w--current {
-  border-bottom: 5px solid #000;
-  padding-bottom: 4px;
+  border-bottom: 5px solid #31477371;
+  padding-bottom: 6px;
 }
 
 @media screen and (max-width: 991px) {
