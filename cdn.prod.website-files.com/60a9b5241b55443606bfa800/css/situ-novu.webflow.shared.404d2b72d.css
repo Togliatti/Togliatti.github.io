@@ -792,10 +792,6 @@ textarea.w-input, textarea.w-select {
   display: none !important;
 }
 
-.menutext.w--current {
-  border-bottom: 5px solid #14737371;
-  padding-bottom: 20px;
-}
 
 @media screen and (max-width: 991px) {
   .w-container {
@@ -2305,8 +2301,10 @@ figure {
 }
 
 .menutext.w--current {
-  color: #000c;
+  color: #14737371;
   line-height: 20px;
+  border-bottom: 5px solid #000;
+  padding-bottom: 4px;
 }
 
 .nav-menu {
