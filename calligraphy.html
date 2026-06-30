@@ -434,6 +434,26 @@ window.addEventListener('load', function() {
     });
   }
 });
-</script>
-  </body>
+  </script>
+  <script>
+window.addEventListener('load', function() {
+  var links = document.querySelectorAll('.menutext');
+  links.forEach(function(link) {
+    link.addEventListener('click', function() {
+      sessionStorage.setItem('menuAttivo', link.getAttribute('href'));
+    });
+  });
+  var salvato = sessionStorage.getItem('menuAttivo');
+  if (salvato) {
+    links.forEach(function(link) {
+      if (link.getAttribute('href') === salvato) {
+        link.classList.add('w--current');
+      } else {
+        link.classList.remove('w--current');
+      }
+    });
+  }
+});
+  </script>
+</body>
 </html>

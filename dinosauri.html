@@ -311,5 +311,25 @@
       src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/js/webflow.ac711976.a8dab422d5c0d913.js"
       type="text/javascript"
     ></script>
-  </body>
+  <script>
+window.addEventListener('load', function() {
+  var links = document.querySelectorAll('.menutext');
+  links.forEach(function(link) {
+    link.addEventListener('click', function() {
+      sessionStorage.setItem('menuAttivo', link.getAttribute('href'));
+    });
+  });
+  var salvato = sessionStorage.getItem('menuAttivo');
+  if (salvato) {
+    links.forEach(function(link) {
+      if (link.getAttribute('href') === salvato) {
+        link.classList.add('w--current');
+      } else {
+        link.classList.remove('w--current');
+      }
+    });
+  }
+});
+  </script>
+</body>
 </html>
