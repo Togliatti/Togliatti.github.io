@@ -2301,9 +2301,9 @@ figure {
 }
 
 .menutext.w--current {
-  color: #14737371;
+  color: #000;
   line-height: 20px;
-  border-bottom: 5px solid #000;
+  border-bottom: 5px solid #14737371;
   padding-bottom: 20px;
 }
 
