@@ -645,5 +645,12 @@ window.addEventListener('load', function() {
     }, durata);
 });
 </script>
-  </body>
+  <script>
+document.querySelectorAll('.menutext').forEach(function(link) {
+  if (window.location.href.includes(link.getAttribute('href'))) {
+    link.classList.add('w--current');
+  }
+});
+</script>
+</body>
 </html>

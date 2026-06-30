@@ -9,5 +9,12 @@
         <ul>
             <li><a id="https://www.grazianoderossi.it/" href="index.html"> Graziano work </a></li>
         </ul>
-    </body>
+    <script>
+document.querySelectorAll('.menutext').forEach(function(link) {
+  if (window.location.href.includes(link.getAttribute('href'))) {
+    link.classList.add('w--current');
+  }
+});
+</script>
+</body>
 </html>

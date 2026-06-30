@@ -144,5 +144,12 @@
       src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/js/webflow.a9ba356d.d790faab5eca85f2.js"
       type="text/javascript"
     ></script>
-  </body>
+  <script>
+document.querySelectorAll('.menutext').forEach(function(link) {
+  if (window.location.href.includes(link.getAttribute('href'))) {
+    link.classList.add('w--current');
+  }
+});
+</script>
+</body>
 </html>
