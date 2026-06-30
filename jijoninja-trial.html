@@ -321,7 +321,9 @@ Cities, like dreams, are made of desires and fears, even if the thread of their 
     ></script>
   <script>
 document.querySelectorAll('.menutext').forEach(function(link) {
-  if (window.location.href.includes(link.getAttribute('href'))) {
+  var href = link.getAttribute('href');
+  var currentPath = window.location.pathname;
+  if (href && currentPath.includes(href.replace('.html', ''))) {
     link.classList.add('w--current');
   }
 });
