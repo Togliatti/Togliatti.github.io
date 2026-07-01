@@ -4,6 +4,7 @@ html {
   font-family: sans-serif;
   overflow-x: clip;
   scrollbar-gutter: stable;
+  overflow-y: scroll;
 }
 
 body {
