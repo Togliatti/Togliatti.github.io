@@ -2,9 +2,11 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   font-family: sans-serif;
+  overflow-x: clip;
 }
 
 body {
+  overflow-x: clip;
   margin: 0;
 }
 
