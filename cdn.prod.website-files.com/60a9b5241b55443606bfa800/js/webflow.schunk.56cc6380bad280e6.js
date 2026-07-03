@@ -1998,7 +1998,7 @@
             u = i.env(),
             c = window.location,
             l = document.createElement("a"),
-            d = "w--current",
+            d = "w--current-disabled",
             f = /index\.(html|php)$/,
             h = /\/$/;
           function p() {

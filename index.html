@@ -28,18 +28,7 @@
         },
       });
     </script>
-    <script>
-window.addEventListener('DOMContentLoaded', function() {
-  var originalRemove = DOMTokenList.prototype.remove;
-  window.__allowCurrentRemoval = false;
-  DOMTokenList.prototype.remove = function(token) {
-    if (token === 'w--current' && this.value.indexOf('menutext') !== -1 && !window.__allowCurrentRemoval) {
-      return;
-    }
-    return originalRemove.apply(this, arguments);
-  };
-});
-</script>
+
     <script type="text/javascript">
       !(function (o, c) {
         var n = c.documentElement,
@@ -653,35 +642,24 @@ window.addEventListener('load', function() {
 });
     </script>
   <script>
-function ripristinaMenuAttivo() {
+window.addEventListener('load', function() {
   var links = document.querySelectorAll('.menutext');
   var salvato = sessionStorage.getItem('menuAttivo');
 
-  window.__allowCurrentRemoval = true;
-  links.forEach(function(link) {
-    if (salvato && link.getAttribute('href') === salvato) {
-      link.classList.add('w--current');
-    } else {
-      link.classList.remove('w--current');
-    }
-  });
-  window.__allowCurrentRemoval = false;
-}
-
-window.addEventListener('load', function() {
-  var links = document.querySelectorAll('.menutext');
   links.forEach(function(link) {
     link.addEventListener('click', function() {
       sessionStorage.setItem('menuAttivo', link.getAttribute('href'));
     });
   });
-  ripristinaMenuAttivo();
-});
 
-// Fix Safari: bfcache non rifà scattare 'load' su back/forward
-window.addEventListener('pageshow', function(event) {
-  if (event.persisted) {
-    ripristinaMenuAttivo();
+  if (salvato) {
+    links.forEach(function(link) {
+      if (link.getAttribute('href') === salvato) {
+        link.classList.add('w--current');
+      } else {
+        link.classList.remove('w--current');
+      }
+    });
   }
 });
 </script>
