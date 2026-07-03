@@ -10,32 +10,7 @@
             <li><a id="https://www.grazianoderossi.it/" href="index.html"> Graziano work </a></li>
         </ul>
     
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var links = document.querySelectorAll('.menutext');
-  var salvato = sessionStorage.getItem('menuAttivo');
 
-  // 1. Salva lo stato al click
-  links.forEach(function(link) {
-    link.addEventListener('click', function() {
-      sessionStorage.setItem('menuAttivo', link.getAttribute('href'));
-    });
-  });
-
-  // 2. Applica la classe in base a sessionStorage
-  if (salvato) {
-    links.forEach(function(link) {
-      if (link.getAttribute('href') === salvato) {
-        link.classList.add('w--current');
-        // Forza Safari a ridisegnare l'elemento (Bug del Repaint)
-        link.offsetHeight; 
-      } else {
-        link.classList.remove('w--current');
-      }
-    });
-  }
-});
-</script>
 
 </body>
 </html>
