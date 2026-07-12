@@ -2149,6 +2149,10 @@ figure {
   display: flex;
 }
 
+.full-width-fix {
+  grid-column: 1 / -1 !important;
+}
+
 .heading-palatino {
   align-self: flex-start;
   font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
