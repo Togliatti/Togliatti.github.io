@@ -2148,7 +2148,7 @@ figure {
   margin-bottom: 10px;
   display: flex;
 }
-
+/*serve per forzare il testo a giustezza*/
 .full-width-fix {
   grid-column: 1 / -1 !important;
 }
