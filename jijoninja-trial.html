@@ -135,13 +135,13 @@
             -moz-font-feature-settings: "ss02"; /* Per compatibilità con browser Firefox */
           }
           .buttonSS {
-            padding: 10px;
+            /*padding: 10px;
             border: 3px solid #000;
             border-radius: 0px;
             color: #000;
+            background-color: transparent;*/
             cursor: pointer;
-            background-color: transparent;
-            font-family: Inconsolata;
+            font-family: 'Open Sans', 'Segoe UI', Arial, sans-serif;
           }
           .buttonSS.active {
             background-color: #ffffff;
@@ -180,10 +180,10 @@
           value="40"
         /><br /><br /><br />
 
-        <button class="paragraph" onclick="toggleAlternativeStilistica(1)">
+        <button class="buttonSS" onclick="toggleAlternativeStilistica(1)">
           Stylistic Set 1
         </button>
-        <button class="paragraph" onclick="toggleAlternativeStilistica(2)">
+        <button class="buttonSS" onclick="toggleAlternativeStilistica(2)">
           Stylistic Set 2</button
         ><br /><br /><br />
 
