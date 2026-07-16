@@ -111,6 +111,7 @@
             border: none;
             outline: none;
             resize: none;
+            overflow: hidden;
             background: transparent;
           }
           .JijoninjaThinTitolo {
@@ -135,21 +136,18 @@
             -moz-font-feature-settings: "ss02"; /* Per compatibilità con browser Firefox */
           }
           .buttonSS {
-            /*padding: 10px;
-            border: 3px solid #000;
-            border-radius: 0px;
-            color: #000;
-            background-color: transparent;*/
             cursor: pointer;
             font-family: 'Open Sans', 'Segoe UI', Arial, sans-serif;
             font-weight: 400;
+            padding-bottom: 4px;
           }
           .buttonSS.active {
-            /*background-color: #ffffff;*/
+            border-bottom: 5px solid #53147371;
           }
 
           input[type="range"] {
             -webkit-appearance: none;
+            appearance: none;
             width: 100%;
           }
           input[type="range"]::-webkit-slider-runnable-track {
@@ -159,18 +157,19 @@
             background: #000;
           }
           input[type="range"]::-webkit-slider-thumb {
-            border: 5px solid #000;
+            -webkit-appearance: none;
+            appearance: none;
+            border: 6px solid #000;
             height: 22px;
             width: 22px;
             border-radius: 11px;
             background: #fff;
             cursor: pointer;
-            -webkit-appearance: none;
             margin-top: -11px;
           }
         </style>
 
-        <div id="JijoninjaThinTitolo" class="paragraph">
+        <div id="JijoninjaThinTitolo" class="heading-palatino">
           Jijoninja Thin Size
         </div>
         <input
