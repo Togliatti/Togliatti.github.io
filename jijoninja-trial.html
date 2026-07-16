@@ -114,35 +114,18 @@
             overflow: hidden;
             background: transparent;
           }
-          .JijoninjaThinTitolo {
-            font-family: Palatino;
-            font-weight: 400;
-            color: #000;
-            font-size: 1.2rem;
-            line-height: 1.5rem;
-            width: 100%;
-            margin-bottom: 30px;
-          }
-          .ss01 {
-            font-family: Jijoninja;
-            font-feature-settings: "ss01";
-            -webkit-font-feature-settings: "ss01"; /* Per compatibilità con browser WebKit */
-            -moz-font-feature-settings: "ss01"; /* Per compatibilità con browser Firefox */
-          }
-          .ss02 {
-            font-family: "Jijoninja";
-            font-feature-settings: "ss02";
-            -webkit-font-feature-settings: "ss02"; /* Per compatibilità con browser WebKit */
-            -moz-font-feature-settings: "ss02"; /* Per compatibilità con browser Firefox */
-          }
           .buttonSS {
             cursor: pointer;
             font-family: 'Open Sans', 'Segoe UI', Arial, sans-serif;
             font-weight: 400;
+            background: none;
+            border: none;
+            padding: 0;
+            border-bottom: 5px solid transparent;
             padding-bottom: 4px;
           }
           .buttonSS.active {
-            border-bottom: 5px solid #53147371;
+            border-bottom-color: #53147371;
           }
 
           input[type="range"] {
@@ -169,8 +152,8 @@
           }
         </style>
 
-        <div id="JijoninjaThinTitolo" class="heading-palatino">
-          Jijoninja Thin Size
+        <div id="JijoninjaThinTitolo" class="paragraph">
+          Jijoninja Thin / Size
         </div>
         <input
           type="range"
@@ -194,6 +177,8 @@ Cities, like dreams, are made of desires and fears, even if the thread of their 
         <script>
           const textArea = document.getElementById("textArea");
           const slider = document.getElementById("slider");
+          const buttons = document.querySelectorAll(".buttonSS");
+          const activeStyles = new Set();
 
           function updateFontSize() {
             const fontSize = slider.value;
@@ -203,6 +188,14 @@ Cities, like dreams, are made of desires and fears, even if the thread of their 
           function adjustTextAreaHeight() {
             textArea.style.height = "auto";
             textArea.style.height = textArea.scrollHeight + "px";
+          }
+
+          function applyFeatureSettings() {
+            const value = activeStyles.size
+              ? [...activeStyles].map((tag) => `"${tag}"`).join(", ")
+              : "normal";
+            textArea.style.fontFeatureSettings = value;
+            textArea.style.webkitFontFeatureSettings = value;
           }
 
           slider.addEventListener("input", () => {
@@ -216,27 +209,18 @@ Cities, like dreams, are made of desires and fears, even if the thread of their 
           adjustTextAreaHeight();
 
           function toggleAlternativeStilistica(styleIndex) {
-            const buttons = document.querySelectorAll(".buttonSS"); // Seleziona tutti i pulsanti
+            const tag = styleIndex === 1 ? "ss01" : "ss02";
+            const button = buttons[styleIndex - 1];
 
-            if (styleIndex === 1) {
-              textArea.classList.toggle("ss01");
-              textArea.classList.remove("ss02");
-            } else if (styleIndex === 2) {
-              textArea.classList.remove("ss01");
-              textArea.classList.toggle("ss02");
+            if (activeStyles.has(tag)) {
+              activeStyles.delete(tag);
+              button.classList.remove("active");
+            } else {
+              activeStyles.add(tag);
+              button.classList.add("active");
             }
 
-            buttons.forEach((button, index) => {
-              if (index + 1 === styleIndex) {
-                // L'indice è 1 in base a come è definito nell'HTML
-                button.classList.toggle(
-                  "active",
-                  !button.classList.contains("active"),
-                );
-              } else {
-                button.classList.remove("active");
-              }
-            });
+            applyFeatureSettings();
           }
         </script>
       </div>
