@@ -114,30 +114,15 @@
             overflow: hidden;
             background: transparent;
           }
-          .ss01 {
-            font-family: Jijoninja;
-            font-feature-settings: "ss01";
-            -webkit-font-feature-settings: "ss01"; /* Per compatibilità con browser WebKit */
-            -moz-font-feature-settings: "ss01"; /* Per compatibilità con browser Firefox */
-          }
-          .ss02 {
-            font-family: "Jijoninja";
-            font-feature-settings: "ss02";
-            -webkit-font-feature-settings: "ss02"; /* Per compatibilità con browser WebKit */
-            -moz-font-feature-settings: "ss02"; /* Per compatibilità con browser Firefox */
-          }
           .buttonSS {
             cursor: pointer;
             font-family: 'Open Sans', 'Segoe UI', Arial, sans-serif;
             font-weight: 400;
-            font-size: 1.2rem;
-            line-height: 150%;
             background: none;
             border: none;
             padding: 0;
             border-bottom: 5px solid transparent;
             padding-bottom: 4px;
-            margin-right: 30px;
           }
           .buttonSS.active {
             border-bottom-color: #53147371;
@@ -157,19 +142,18 @@
           input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            box-sizing: border-box;
             border: 6px solid #000;
             height: 22px;
             width: 22px;
             border-radius: 11px;
             background: #fff;
             cursor: pointer;
-            margin-top: -10px;
+            margin-top: -11px;
           }
         </style>
 
         <div id="JijoninjaThinTitolo" class="paragraph">
-          Jijoninja Thin Size
+          Jijoninja Thin > Size ... Stylistic Set
         </div>
         <input
           type="range"
@@ -187,12 +171,14 @@
         ><br /><br /><br />
 
         <textarea id="textArea" spellcheck="false">
-Cities, like dreams, are made of desires and fears, even if the thread of their discourse is secret, their rules are absurd, their perspectives deceitful, and everything conceals something else.</textarea
+Cities, like Dreams, Are Made of Desires and Fears, Even if the Thread of their discourse is Secret, their Rules are Absurd, their Perspectives Deceitful, and Everything conceals Something else.</textarea
         >
 
         <script>
           const textArea = document.getElementById("textArea");
           const slider = document.getElementById("slider");
+          const buttons = document.querySelectorAll(".buttonSS");
+          const activeStyles = new Set();
 
           function updateFontSize() {
             const fontSize = slider.value;
@@ -202,6 +188,14 @@ Cities, like dreams, are made of desires and fears, even if the thread of their 
           function adjustTextAreaHeight() {
             textArea.style.height = "auto";
             textArea.style.height = textArea.scrollHeight + "px";
+          }
+
+          function applyFeatureSettings() {
+            const value = activeStyles.size
+              ? [...activeStyles].map((tag) => `"${tag}"`).join(", ")
+              : "normal";
+            textArea.style.fontFeatureSettings = value;
+            textArea.style.webkitFontFeatureSettings = value;
           }
 
           slider.addEventListener("input", () => {
@@ -215,26 +209,18 @@ Cities, like dreams, are made of desires and fears, even if the thread of their 
           adjustTextAreaHeight();
 
           function toggleAlternativeStilistica(styleIndex) {
-            const buttons = document.querySelectorAll(".buttonSS");
+            const tag = styleIndex === 1 ? "ss01" : "ss02";
+            const button = buttons[styleIndex - 1];
 
-            if (styleIndex === 1) {
-              textArea.classList.toggle("ss01");
-              textArea.classList.remove("ss02");
-            } else if (styleIndex === 2) {
-              textArea.classList.remove("ss01");
-              textArea.classList.toggle("ss02");
+            if (activeStyles.has(tag)) {
+              activeStyles.delete(tag);
+              button.classList.remove("active");
+            } else {
+              activeStyles.add(tag);
+              button.classList.add("active");
             }
 
-            buttons.forEach((button, index) => {
-              if (index + 1 === styleIndex) {
-                button.classList.toggle(
-                  "active",
-                  !button.classList.contains("active"),
-                );
-              } else {
-                button.classList.remove("active");
-              }
-            });
+            applyFeatureSettings();
           }
         </script>
       </div>
