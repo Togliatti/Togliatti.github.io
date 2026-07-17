@@ -149,9 +149,24 @@
             }
           }
 
+          .slider-row {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+          }
+
+          .slider-row #JijoninjaThinTitolo {
+            width: auto;
+            flex-shrink: 0;
+            white-space: nowrap;
+          }
+
           input[type="range"] {
             -webkit-appearance: none;
             appearance: none;
+            flex: 1;
+            min-width: 0;
           }
           input[type="range"]::-webkit-slider-runnable-track {
             width: 100%;
@@ -173,16 +188,19 @@
           }
         </style>
 
-        <div id="JijoninjaThinTitolo" class="paragraph">
-          Jijoninja Thin Size
+        <div class="slider-row">
+          <div id="JijoninjaThinTitolo" class="paragraph">
+            Jijoninja Thin Size
+          </div>
+          <input
+            type="range"
+            id="slider"
+            min="20"
+            max="200"
+            value="40"
+          />
         </div>
-        <input
-          type="range"
-          id="slider"
-          min="20"
-          max="200"
-          value="40"
-        /><br /><br /><br />
+        <br /><br /><br />
 
         <button class="buttonSS" onclick="toggleAlternativeStilistica(1)">
           Stylistic Set 1
@@ -198,15 +216,6 @@ Cities, like dreams, are made of desires and fears, even if the thread of their 
         <script>
           const textArea = document.getElementById("textArea");
           const slider = document.getElementById("slider");
-          const titleLabel = document.getElementById("JijoninjaThinTitolo");
-
-          function syncSliderWidth() {
-            slider.style.width = titleLabel.offsetWidth + "px";
-          }
-
-          window.addEventListener("load", syncSliderWidth);
-          window.addEventListener("resize", syncSliderWidth);
-          syncSliderWidth();
 
           function updateFontSize() {
             const fontSize = slider.value;
