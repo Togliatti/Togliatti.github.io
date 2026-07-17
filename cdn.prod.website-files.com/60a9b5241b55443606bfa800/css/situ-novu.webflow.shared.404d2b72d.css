@@ -2192,10 +2192,6 @@ textarea.w-input, textarea.w-select {
   line-height: 150%;
 }
 
-.paragraph-400 {
-    font-weight: 400;
-}
-
 .paragraph.disegn {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-weight: 100;
