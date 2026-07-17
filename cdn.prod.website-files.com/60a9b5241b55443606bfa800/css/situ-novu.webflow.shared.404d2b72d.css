@@ -3133,6 +3133,10 @@ textarea.w-input, textarea.w-select {
   width: 100%;
 }
 
+.spazio-parola {
+    margin-left: 0.75em;
+}
+
 @media screen and (max-width: 991px) {
   .heading-palatino.label {
     font-size: 22px;
@@ -3810,10 +3814,6 @@ textarea.w-input, textarea.w-select {
     position: sticky;
     top: 220px;
     overflow: clip;
-  }
-
-  .spazio-parola {
-    margin-left: 0.75em;
   }
 }
 
