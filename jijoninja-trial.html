@@ -129,7 +129,7 @@
           .buttonSS {
             cursor: pointer;
             font-family: 'Open Sans', 'Segoe UI', Arial, sans-serif;
-            font-weight: 400;
+            font-weight: 300;
             font-size: 1.2rem;
             line-height: 150%;
             background: none;
@@ -143,10 +143,15 @@
             border-bottom-color: #53147371;
           }
 
+          @media screen and (max-width: 991px) {
+            .buttonSS {
+              font-size: 1rem;
+            }
+          }
+
           input[type="range"] {
             -webkit-appearance: none;
             appearance: none;
-            width: 100%;
           }
           input[type="range"]::-webkit-slider-runnable-track {
             width: 100%;
@@ -193,6 +198,15 @@ Cities, like dreams, are made of desires and fears, even if the thread of their 
         <script>
           const textArea = document.getElementById("textArea");
           const slider = document.getElementById("slider");
+          const titleLabel = document.getElementById("JijoninjaThinTitolo");
+
+          function syncSliderWidth() {
+            slider.style.width = titleLabel.offsetWidth + "px";
+          }
+
+          window.addEventListener("load", syncSliderWidth);
+          window.addEventListener("resize", syncSliderWidth);
+          syncSliderWidth();
 
           function updateFontSize() {
             const fontSize = slider.value;
