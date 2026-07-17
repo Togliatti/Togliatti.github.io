@@ -150,20 +150,6 @@
             }
           }
 
-          .slider-row {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-          }
-
-          .slider-row #JijoninjaThinTitolo {
-            width: auto;
-            flex-shrink: 0;
-            white-space: nowrap;
-            font-weight: 400;
-          }
-
           .spazio-parola {
             margin-left: 1em;
           }
@@ -171,8 +157,6 @@
           input[type="range"] {
             -webkit-appearance: none;
             appearance: none;
-            flex: 1;
-            min-width: 0;
           }
           input[type="range"]::-webkit-slider-runnable-track {
             width: 100%;
@@ -205,22 +189,16 @@
           }
         </style>
 
-        <div class="slider-row">
-          <div class="paragraph fw-400">
-            Jijoninja Thin<span class="spazio-parola">Size</span>
-          </div>
-          <div id="JijoninjaThinTitolo" class="paragraph fw-400">
-            Jijoninja Thin<span class="spazio-parola">Size</span>
-          </div>
-
-          <input
-            type="range"
-            id="slider"
-            min="20"
-            max="200"
-            value="40"
-          />
+        <div class="paragraph fw-400">
+          Jijoninja Thin<span class="spazio-parola">Size</span>
         </div>
+        <input
+          type="range"
+          id="slider"
+          min="20"
+          max="200"
+          value="40"
+        />
         <br />
 
         <button class="buttonSS" onclick="toggleAlternativeStilistica(1)">
