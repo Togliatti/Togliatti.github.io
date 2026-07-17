@@ -155,19 +155,22 @@
           }
 
           .jij-size-control {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: stretch;
-            width: fit-content;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
           }
 
           .jij-size-control .paragraph {
             width: auto;
+            flex-shrink: 0;
             white-space: nowrap;
           }
 
           .jij-size-control input[type="range"] {
-            width: 100%;
+            flex: 1;
+            min-width: 0;
           }
 
           input[type="range"] {
