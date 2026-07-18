@@ -233,53 +233,58 @@
         >
 
         <script>
-          const textArea = document.getElementById("textArea");
-          const slider = document.getElementById("slider");
+  const textArea = document.getElementById("textArea");
+  const slider = document.getElementById("slider");
 
-          function updateFontSize() {
-            const fontSize = slider.value;
-            textArea.style.fontSize = fontSize + "px";
-          }
+  function updateFontSize() {
+    const fontSize = slider.value;
+    textArea.style.fontSize = fontSize + "px";
+  }
 
-          function adjustTextAreaHeight() {
-            textArea.style.height = "auto";
-            textArea.style.height = textArea.scrollHeight + "px";
-          }
+  function adjustTextAreaHeight() {
+    textArea.style.height = "auto";
+    textArea.style.height = textArea.scrollHeight + "px";
+  }
 
-          slider.addEventListener("input", () => {
-            updateFontSize();
-            adjustTextAreaHeight();
-          });
+  slider.addEventListener("input", () => {
+    updateFontSize();
+    adjustTextAreaHeight();
+  });
 
-          textArea.addEventListener("input", adjustTextAreaHeight);
+  textArea.addEventListener("input", adjustTextAreaHeight);
 
-          updateFontSize();
-          adjustTextAreaHeight();
+  function toggleAlternativeStilistica(styleIndex) {
+    const buttons = document.querySelectorAll(".buttonSS");
 
-          function toggleAlternativeStilistica(styleIndex) {
-            const buttons = document.querySelectorAll(".buttonSS");
+    if (styleIndex === 1) {
+      textArea.classList.toggle("ss01");
+      textArea.classList.remove("ss02");
+    } else if (styleIndex === 2) {
+      textArea.classList.remove("ss01");
+      textArea.classList.toggle("ss02");
+    }
 
-            if (styleIndex === 1) {
-              textArea.classList.toggle("ss01");
-              textArea.classList.remove("ss02");
-            } else if (styleIndex === 2) {
-              textArea.classList.remove("ss01");
-              textArea.classList.toggle("ss02");
-            }
+    buttons.forEach((button, index) => {
+      if (index + 1 === styleIndex) {
+        button.classList.toggle(
+          "active",
+          !button.classList.contains("active"),
+        );
+      } else {
+        button.classList.remove("active");
+      }
+    });
 
-            buttons.forEach((button, index) => {
-              if (index + 1 === styleIndex) {
-                button.classList.toggle(
-                  "active",
-                  !button.classList.contains("active"),
-                );
-              } else {
-                button.classList.remove("active");
-              }
-            });
-            setTimeout(adjustTextAreaHeight, 50);
-          }
-        </script>
+    setTimeout(adjustTextAreaHeight, 50);
+  }
+
+  document.fonts.ready.then(() => {
+    updateFontSize();
+    adjustTextAreaHeight();
+    setTimeout(adjustTextAreaHeight, 50);
+  });
+</script>
+
       </div>
     </section>
     <div id="Big-foot" class="section-footer">
