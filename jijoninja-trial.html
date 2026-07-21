@@ -259,9 +259,6 @@
 
           textArea.addEventListener("input", adjustTextAreaHeight);
 
-          updateFontSize();
-          adjustTextAreaHeight();
-
           function toggleAlternativeStilistica(styleIndex) {
             const buttons = document.querySelectorAll(".buttonSS");
 
@@ -273,18 +270,26 @@
               textArea.classList.toggle("ss02");
             }
 
-            buttons.forEach((button, index) => {
-              if (index + 1 === styleIndex) {
-                button.classList.toggle(
-                  "active",
-                  !button.classList.contains("active"),
-                );
-              } else {
-                button.classList.remove("active");
-              }
-            });
-          }
-        </script>
+    buttons.forEach((button, index) => {
+      if (index + 1 === styleIndex) {
+        button.classList.toggle(
+          "active",
+          !button.classList.contains("active"),
+        );
+      } else {
+        button.classList.remove("active");
+      }
+    });
+
+    setTimeout(adjustTextAreaHeight, 50);
+  }
+
+  document.fonts.ready.then(() => {
+    updateFontSize();
+    adjustTextAreaHeight();
+    setTimeout(adjustTextAreaHeight, 50);
+  });
+</script>
       </div>
     </section>
     <div id="Big-foot" class="section-footer">
