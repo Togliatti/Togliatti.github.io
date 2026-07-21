@@ -92,7 +92,7 @@
 
   <!-- Nuovo blocco per il link con distanziamento di 20px senza usare <br> -->
   <p class="paragraph" style="font-size: 1.2em; margin-top: 20px;">
-  <a href="FontDownload/Jijoninja-Thin.otf.zip" class="yellow-link">jijoninja free download</a>
+  <a href="FontDownload/Jijoninja-Thin.otf.zip" class="yellow-link" style="white-space: nowrap;">jijoninja free download</a>
   </p>
 
 </div>
@@ -106,7 +106,7 @@
             line-height: 1.1em;
             color: #000;
             width: 100%;
-            padding: 0.3em 0 0 0;   /* solo sopra */
+            padding: 0px;
             height: auto;
             border: none;
             outline: none;
@@ -169,8 +169,14 @@
           }
 
           .jij-size-control input[type="range"] {
-            flex: 1;
+            flex: 0 0 200px;
             min-width: 0;
+          }
+
+          @media screen and (max-width: 991px) {
+            .jij-size-control input[type="range"] {
+              flex: 1;
+            }
           }
 
           input[type="range"] {
@@ -223,68 +229,62 @@
         <br />
 
         <button class="buttonSS" onclick="toggleAlternativeStilistica(1)">
-          Alternative 1
+          Swash capitals
         </button>
         <button class="buttonSS" onclick="toggleAlternativeStilistica(2)">
-          Alternative 2</button
+          Other alternatives</button
         ><br /><br /><br />
 
         <textarea id="textArea" spellcheck="false">Cities, like Dreams, Are Made of Desires and Fears, Even if the Thread of their Discourse is Secret, their Rules are Absurd, their Perspectives deceitful, and Everything conceals Something else.</textarea
         >
 
         <script>
-  const textArea = document.getElementById("textArea");
-  const slider = document.getElementById("slider");
+          const textArea = document.getElementById("textArea");
+          const slider = document.getElementById("slider");
 
-  function updateFontSize() {
-    const fontSize = slider.value;
-    textArea.style.fontSize = fontSize + "px";
-  }
+          function updateFontSize() {
+            const fontSize = slider.value;
+            textArea.style.fontSize = fontSize + "px";
+          }
 
-  function adjustTextAreaHeight() {
-    textArea.style.height = "auto";
-    textArea.style.height = textArea.scrollHeight + "px";
-  }
+          function adjustTextAreaHeight() {
+            textArea.style.height = "auto";
+            textArea.style.height = textArea.scrollHeight + "px";
+          }
 
-  slider.addEventListener("input", () => {
-    updateFontSize();
-    adjustTextAreaHeight();
-  });
+          slider.addEventListener("input", () => {
+            updateFontSize();
+            adjustTextAreaHeight();
+          });
 
-  textArea.addEventListener("input", adjustTextAreaHeight);
+          textArea.addEventListener("input", adjustTextAreaHeight);
 
-  function toggleAlternativeStilistica(styleIndex) {
-    const buttons = document.querySelectorAll(".buttonSS");
+          updateFontSize();
+          adjustTextAreaHeight();
 
-    if (styleIndex === 1) {
-      textArea.classList.toggle("ss01");
-      textArea.classList.remove("ss02");
-    } else if (styleIndex === 2) {
-      textArea.classList.remove("ss01");
-      textArea.classList.toggle("ss02");
-    }
+          function toggleAlternativeStilistica(styleIndex) {
+            const buttons = document.querySelectorAll(".buttonSS");
 
-    buttons.forEach((button, index) => {
-      if (index + 1 === styleIndex) {
-        button.classList.toggle(
-          "active",
-          !button.classList.contains("active"),
-        );
-      } else {
-        button.classList.remove("active");
-      }
-    });
+            if (styleIndex === 1) {
+              textArea.classList.toggle("ss01");
+              textArea.classList.remove("ss02");
+            } else if (styleIndex === 2) {
+              textArea.classList.remove("ss01");
+              textArea.classList.toggle("ss02");
+            }
 
-    setTimeout(adjustTextAreaHeight, 50);
-  }
-
-  document.fonts.ready.then(() => {
-    updateFontSize();
-    adjustTextAreaHeight();
-    setTimeout(adjustTextAreaHeight, 50);
-  });
-</script>
-
+            buttons.forEach((button, index) => {
+              if (index + 1 === styleIndex) {
+                button.classList.toggle(
+                  "active",
+                  !button.classList.contains("active"),
+                );
+              } else {
+                button.classList.remove("active");
+              }
+            });
+          }
+        </script>
       </div>
     </section>
     <div id="Big-foot" class="section-footer">
