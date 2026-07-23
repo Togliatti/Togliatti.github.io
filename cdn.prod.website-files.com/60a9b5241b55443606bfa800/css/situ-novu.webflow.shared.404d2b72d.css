@@ -2133,9 +2133,10 @@ textarea.w-input, textarea.w-select {
   align-self: flex-start;
   font-family: var(--font-primary);
   font-size: 30px;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 1.2em;
   text-decoration: none;
+  letter-spacing: 1.5px;
 }
 
 .heading-palatino.label {
@@ -2702,7 +2703,7 @@ textarea.w-input, textarea.w-select {
   color: #000;
   font-family: var(--font-primary);
   font-size: 20px;
-  font-weight: 100;
+  font-weight: 200;
   line-height: 1.4em;
 }
 
@@ -2752,7 +2753,7 @@ textarea.w-input, textarea.w-select {
   color: #000c;
   font-family: var(--font-primary);
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 400;
   text-decoration: none;
 }
 
@@ -2766,7 +2767,7 @@ textarea.w-input, textarea.w-select {
   color: #00426e;
   margin-top: 40px;
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 400;
   position: absolute;
 }
 
