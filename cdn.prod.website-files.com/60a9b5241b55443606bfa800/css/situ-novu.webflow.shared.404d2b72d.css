@@ -2761,7 +2761,7 @@ textarea.w-input, textarea.w-select {
   background-image: linear-gradient(var(--yellowsubmarine), var(--yellowsubmarine));
   background-repeat: no-repeat;
   background-size: 100% 5px;
-  background-position: 0 90%;
+  background-position: 0 80%;
 }
 
 .yellow-link.combo-leading {
