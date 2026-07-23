@@ -2749,12 +2749,15 @@ textarea.w-input, textarea.w-select {
 }
 
 .yellow-link {
-  border-bottom: 5px solid var(--yellowsubmarine);
   color: #000c;
   font-family: var(--font-primary);
   font-size: 1.2rem;
-  font-weight: 400;
+  font-weight: 500;
   text-decoration: none;
+  background-image: linear-gradient(var(--yellowsubmarine), var(--yellowsubmarine));
+  background-repeat: no-repeat;
+  background-size: 100% 5px;
+  background-position: 0 95%;
 }
 
 .yellow-link.combo-leading {
