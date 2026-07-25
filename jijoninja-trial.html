@@ -107,18 +107,6 @@
             overflow: hidden;
             background: transparent;
           }
-          .ss01 {
-            font-family: Jijoninja;
-            font-feature-settings: "ss01";
-            -webkit-font-feature-settings: "ss01"; /* Per compatibilità con browser WebKit */
-            -moz-font-feature-settings: "ss01"; /* Per compatibilità con browser Firefox */
-          }
-          .ss02 {
-            font-family: "Jijoninja";
-            font-feature-settings: "ss02";
-            -webkit-font-feature-settings: "ss02"; /* Per compatibilità con browser WebKit */
-            -moz-font-feature-settings: "ss02"; /* Per compatibilità con browser Firefox */
-          }
           .buttonSS {
             cursor: pointer;
             font-family: var(--font-primary);
@@ -225,7 +213,10 @@
           Swash capitals
         </button>
         <button class="buttonSS" onclick="toggleAlternativeStilistica(2)">
-          Other alternatives</button
+          Other alternatives
+        </button>
+        <button class="buttonSS" id="ligaturesButton" onclick="toggleLigature()">
+          Ligatures</button
         ><br /><br /><br />
 
         <textarea id="textArea" spellcheck="false">Cities, like Dreams, Are Made of Desires and Fears, Even if the Thread of their Discourse is Secret, their Rules are Absurd, their Perspectives deceitful, and Everything conceals Something else.</textarea
@@ -234,6 +225,26 @@
         <script>
           const textArea = document.getElementById("textArea");
           const slider = document.getElementById("slider");
+          const ligaturesButton = document.getElementById("ligaturesButton");
+
+          // Stato delle feature OpenType attive.
+          // activeSS: null | 1 | 2  -> quale stylistic set è attivo (mutuamente esclusivi)
+          // dligActive: true/false -> le legature restano indipendenti da activeSS
+          let activeSS = null;
+          let dligActive = false;
+
+          function updateFontFeatures() {
+            const features = [];
+            if (activeSS === 1) features.push('"ss01"');
+            if (activeSS === 2) features.push('"ss02"');
+            if (dligActive) features.push('"dlig"');
+
+            const featureString = features.length ? features.join(", ") : "normal";
+
+            textArea.style.fontFeatureSettings = featureString;
+            textArea.style.webkitFontFeatureSettings = featureString;
+            textArea.style.MozFontFeatureSettings = featureString;
+          }
 
           function updateFontSize() {
             const fontSize = slider.value;
@@ -255,34 +266,34 @@
           function toggleAlternativeStilistica(styleIndex) {
             const buttons = document.querySelectorAll(".buttonSS");
 
-            if (styleIndex === 1) {
-              textArea.classList.toggle("ss01");
-              textArea.classList.remove("ss02");
-            } else if (styleIndex === 2) {
-              textArea.classList.remove("ss01");
-              textArea.classList.toggle("ss02");
-            }
+            // Se il set cliccato è già attivo, lo disattivo; altrimenti lo attivo
+            // (gli stylistic set restano mutuamente esclusivi tra loro,
+            // ma non toccano mai lo stato di dligActive)
+            activeSS = activeSS === styleIndex ? null : styleIndex;
 
-    buttons.forEach((button, index) => {
-      if (index + 1 === styleIndex) {
-        button.classList.toggle(
-          "active",
-          !button.classList.contains("active"),
-        );
-      } else {
-        button.classList.remove("active");
-      }
-    });
+            buttons.forEach((button) => {
+              if (button === ligaturesButton) return; // il bottone Ligatures gestisce solo se stesso
+              const buttonIndex = button === buttons[0] ? 1 : 2;
+              button.classList.toggle("active", activeSS === buttonIndex);
+            });
 
-    setTimeout(adjustTextAreaHeight, 50);
-  }
+            updateFontFeatures();
+            setTimeout(adjustTextAreaHeight, 50);
+          }
 
-  document.fonts.ready.then(() => {
-    updateFontSize();
-    adjustTextAreaHeight();
-    setTimeout(adjustTextAreaHeight, 50);
-  });
-</script>
+          function toggleLigature() {
+            dligActive = !dligActive;
+            ligaturesButton.classList.toggle("active", dligActive);
+            updateFontFeatures();
+            setTimeout(adjustTextAreaHeight, 50);
+          }
+
+          document.fonts.ready.then(() => {
+            updateFontSize();
+            adjustTextAreaHeight();
+            setTimeout(adjustTextAreaHeight, 50);
+          });
+        </script>
       </div>
     </section>
     <div id="Big-foot" class="section-footer">
