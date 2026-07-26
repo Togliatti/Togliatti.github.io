@@ -90,6 +90,160 @@
 
 </div>
 
+    <div class="trial-slideshow-wrapper w-embed w-script">
+      <style>
+        .trial-slideshow {
+          width: 100%;
+          height: 500px;
+          position: relative;
+          background-color: #ddd;
+          margin: 20px 0 40px;
+          overflow: hidden;
+        }
+
+        .trial-slideshow-mask {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .trial-slide {
+          flex: 0 0 100%;
+          width: 100%;
+          height: 100%;
+        }
+
+        .trial-slide img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: 50% 0%;
+        }
+
+        .trial-slideshow-nav {
+          z-index: 2;
+          text-align: center;
+          height: 40px;
+          margin: auto;
+          padding-top: 10px;
+          position: absolute;
+          inset: auto 0 0;
+        }
+
+        .trial-slideshow-dot {
+          cursor: pointer;
+          background-color: #0006;
+          width: 1em;
+          height: 1em;
+          margin: 0 3px 0.5em;
+          border-radius: 100%;
+          display: inline-block;
+          transition: background-color 0.1s;
+        }
+
+        .trial-slideshow-dot.active {
+          background-color: #000;
+        }
+
+        @media screen and (max-width: 767px) {
+          .trial-slideshow {
+            height: 300px;
+          }
+        }
+      </style>
+
+      <div class="trial-slideshow" id="trialSlideshow">
+        <div class="trial-slideshow-mask" id="trialSlideshowMask">
+          <div class="trial-slide">
+            <img
+              src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_01.png"
+              loading="lazy"
+              alt=""
+            />
+          </div>
+          <div class="trial-slide">
+            <img
+              src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_02.png"
+              loading="lazy"
+              alt=""
+            />
+          </div>
+          <div class="trial-slide">
+            <img
+              src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_03.png"
+              loading="lazy"
+              alt=""
+            />
+          </div>
+          <div class="trial-slide">
+            <img
+              src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_04.png"
+              loading="lazy"
+              alt=""
+            />
+          </div>
+          <div class="trial-slide">
+            <img
+              src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_05.png"
+              loading="lazy"
+              alt=""
+            />
+          </div>
+          <div class="trial-slide">
+            <img
+              src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_06.png"
+              loading="lazy"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="trial-slideshow-nav" id="trialSlideshowNav"></div>
+      </div>
+
+      <script>
+        (function () {
+          const mask = document.getElementById("trialSlideshowMask");
+          const nav = document.getElementById("trialSlideshowNav");
+          const slides = mask.querySelectorAll(".trial-slide");
+          const total = slides.length;
+          const delayMs = 2000; // stesso data-delay dello slider originale
+          let current = 0;
+          let autoplayTimer;
+
+          // Costruisco i pallini di navigazione
+          slides.forEach((_, index) => {
+            const dot = document.createElement("div");
+            dot.className = "trial-slideshow-dot" + (index === 0 ? " active" : "");
+            dot.addEventListener("click", () => {
+              goToSlide(index);
+              restartAutoplay();
+            });
+            nav.appendChild(dot);
+          });
+
+          function goToSlide(index) {
+            current = index;
+            mask.style.transform = "translateX(-" + current * 100 + "%)";
+            nav.querySelectorAll(".trial-slideshow-dot").forEach((dot, i) => {
+              dot.classList.toggle("active", i === current);
+            });
+          }
+
+          function nextSlide() {
+            goToSlide((current + 1) % total);
+          }
+
+          function restartAutoplay() {
+            clearInterval(autoplayTimer);
+            autoplayTimer = setInterval(nextSlide, delayMs);
+          }
+
+          restartAutoplay();
+        })();
+      </script>
+    </div>
+
     <section class="section-text-area">
       <div class="html-embed-jijoninja w-embed w-script">
         <style>
