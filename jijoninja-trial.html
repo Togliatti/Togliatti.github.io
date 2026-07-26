@@ -172,7 +172,6 @@
           <div class="trial-slide">
             <img
               src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_01.png"
-              loading="lazy"
               draggable="false"
               alt=""
             />
@@ -180,7 +179,6 @@
           <div class="trial-slide">
             <img
               src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_02.png"
-              loading="lazy"
               draggable="false"
               alt=""
             />
@@ -188,7 +186,6 @@
           <div class="trial-slide">
             <img
               src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_03.png"
-              loading="lazy"
               draggable="false"
               alt=""
             />
@@ -196,7 +193,6 @@
           <div class="trial-slide">
             <img
               src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_04.png"
-              loading="lazy"
               draggable="false"
               alt=""
             />
@@ -204,7 +200,6 @@
           <div class="trial-slide">
             <img
               src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_05.png"
-              loading="lazy"
               draggable="false"
               alt=""
             />
@@ -212,7 +207,6 @@
           <div class="trial-slide">
             <img
               src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_06.png"
-              loading="lazy"
               draggable="false"
               alt=""
             />
@@ -271,6 +265,8 @@
             });
           }
 
+          let wrapTimer = null;
+
           function setPosition(pos, animate) {
             position = pos;
             if (animate) {
@@ -286,6 +282,24 @@
               void mask.offsetWidth;
               mask.classList.remove("no-transition");
             }
+
+            // Se la nuova posizione atterra su un clone, programmo lo scatto
+            // silenzioso verso la slide reale corrispondente con un timer,
+            // NON con l'evento "transitionend": quest'ultimo non scatta se una
+            // nuova interazione (es. un nuovo swipe) interrompe la transizione
+            // in corso, lasciando la posizione bloccata su un clone e mandando
+            // il carosello fuori dai binari con schermate grigie e blocchi.
+            clearTimeout(wrapTimer);
+            if (animate && (position === extendedTotal - 1 || position === 0)) {
+              const landedOnLast = position === extendedTotal - 1;
+              wrapTimer = setTimeout(() => {
+                if (landedOnLast && position === extendedTotal - 1) {
+                  setPosition(1, false);
+                } else if (!landedOnLast && position === 0) {
+                  setPosition(extendedTotal - 2, false);
+                }
+              }, 520); // poco più della durata della transizione (500ms)
+            }
           }
 
           function nextSlide() {
@@ -300,18 +314,6 @@
             clearInterval(autoplayTimer);
             autoplayTimer = setInterval(nextSlide, delayMs);
           }
-
-          // Quando la transizione arriva su un clone, scatto silenziosamente
-          // (senza transizione) sulla slide reale corrispondente: il clone è
-          // visivamente identico, quindi il salto è impercettibile.
-          mask.addEventListener("transitionend", (e) => {
-            if (e.propertyName !== "transform") return;
-            if (position === extendedTotal - 1) {
-              setPosition(1, false);
-            } else if (position === 0) {
-              setPosition(extendedTotal - 2, false);
-            }
-          });
 
           // --- Trascinamento con mouse e dito (Pointer Events copre entrambi) ---
           function setDragTransform(px) {
