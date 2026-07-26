@@ -416,8 +416,14 @@
           }
 
           function adjustTextAreaHeight() {
+            // Salvo la posizione di scroll prima di collassare temporaneamente
+            // l'altezza (height:auto), perché altrimenti il browser è costretto
+            // a "clampare" lo scroll se ci si trova in fondo alla pagina, e non
+            // lo ripristina da solo quando l'altezza torna quella corretta.
+            const scrollPos = window.scrollY;
             textArea.style.height = "auto";
             textArea.style.height = textArea.scrollHeight + "px";
+            window.scrollTo(0, scrollPos);
           }
 
           slider.addEventListener("input", () => {
