@@ -226,40 +226,74 @@
           const box = document.getElementById("trialSlideshow");
           const mask = document.getElementById("trialSlideshowMask");
           const nav = document.getElementById("trialSlideshowNav");
-          const slides = mask.querySelectorAll(".trial-slide");
-          const total = slides.length;
           const delayMs = 4000; // stesso data-delay dello slider originale
-          let current = 0;
+
+          // Slide reali (prima di aggiungere i cloni)
+          const originalSlides = Array.from(mask.children);
+          const total = originalSlides.length;
+
+          // Clono l'ultima slide all'inizio e la prima slide alla fine:
+          // così la sequenza fisica diventa [clone-ultima, 1,2,3,4,5,6, clone-prima]
+          // e il "giro" avanti/indietro può continuare nella stessa direzione
+          // invece di riavvolgersi visivamente all'indietro.
+          const firstClone = originalSlides[0].cloneNode(true);
+          const lastClone = originalSlides[total - 1].cloneNode(true);
+          mask.insertBefore(lastClone, originalSlides[0]);
+          mask.appendChild(firstClone);
+
+          const extendedTotal = total + 2;
+          let position = 1; // partiamo sulla prima slide reale (indice 1 nella sequenza estesa)
           let autoplayTimer;
           let isDragging = false;
           let startX = 0;
           let deltaX = 0;
 
-          // Costruisco i pallini di navigazione
-          slides.forEach((_, index) => {
+          // Costruisco i pallini di navigazione (uno per ogni slide reale)
+          originalSlides.forEach((_, index) => {
             const dot = document.createElement("div");
             dot.className = "trial-slideshow-dot" + (index === 0 ? " active" : "");
             dot.addEventListener("click", () => {
-              goToSlide(index);
+              setPosition(index + 1, true);
               restartAutoplay();
             });
             nav.appendChild(dot);
           });
 
-          function goToSlide(index) {
-            current = index;
-            mask.style.transform = "translateX(-" + current * 100 + "%)";
+          function logicalIndex(pos) {
+            if (pos <= 0) return total - 1;
+            if (pos >= extendedTotal - 1) return 0;
+            return pos - 1;
+          }
+
+          function updateDots(index) {
             nav.querySelectorAll(".trial-slideshow-dot").forEach((dot, i) => {
-              dot.classList.toggle("active", i === current);
+              dot.classList.toggle("active", i === index);
             });
           }
 
+          function setPosition(pos, animate) {
+            position = pos;
+            if (animate) {
+              mask.classList.remove("no-transition");
+            } else {
+              mask.classList.add("no-transition");
+            }
+            mask.style.transform = "translateX(-" + position * 100 + "%)";
+            updateDots(logicalIndex(position));
+            if (!animate) {
+              // Forzo un reflow prima di riabilitare la transizione, altrimenti
+              // il browser potrebbe animare anche questo salto istantaneo.
+              void mask.offsetWidth;
+              mask.classList.remove("no-transition");
+            }
+          }
+
           function nextSlide() {
-            goToSlide((current + 1) % total);
+            setPosition(position + 1, true);
           }
 
           function prevSlide() {
-            goToSlide((current - 1 + total) % total);
+            setPosition(position - 1, true);
           }
 
           function restartAutoplay() {
@@ -267,10 +301,22 @@
             autoplayTimer = setInterval(nextSlide, delayMs);
           }
 
+          // Quando la transizione arriva su un clone, scatto silenziosamente
+          // (senza transizione) sulla slide reale corrispondente: il clone è
+          // visivamente identico, quindi il salto è impercettibile.
+          mask.addEventListener("transitionend", (e) => {
+            if (e.propertyName !== "transform") return;
+            if (position === extendedTotal - 1) {
+              setPosition(1, false);
+            } else if (position === 0) {
+              setPosition(extendedTotal - 2, false);
+            }
+          });
+
           // --- Trascinamento con mouse e dito (Pointer Events copre entrambi) ---
           function setDragTransform(px) {
             mask.style.transform =
-              "translateX(calc(-" + current * 100 + "% + " + px + "px))";
+              "translateX(calc(-" + position * 100 + "% + " + px + "px))";
           }
 
           box.addEventListener("pointerdown", (e) => {
@@ -301,7 +347,7 @@
             } else if (deltaX >= threshold) {
               prevSlide();
             } else {
-              goToSlide(current);
+              setPosition(position, true);
             }
             restartAutoplay();
           }
@@ -312,11 +358,11 @@
             if (isDragging) endDrag();
           });
 
-          // Imposto esplicitamente il transform sulla prima slide: Safari a volte
-          // non renderizza correttamente un valore di transform "assente" (default)
-          // dentro un flex container finché non avviene un reflow (es. il resize
-          // che triggerava il refresh manuale che avevi notato).
-          goToSlide(0);
+          // Imposto esplicitamente il transform sulla prima slide reale, senza
+          // transizione (siamo al caricamento). Vale ancora la correzione per
+          // Safari: un valore di transform esplicito, invece di quello di
+          // default assente, evita il bug del mancato render iniziale.
+          setPosition(1, false);
           restartAutoplay();
         });
       </script>
