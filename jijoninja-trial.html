@@ -87,8 +87,7 @@
   <p class="paragraph" style="font-size: 1.2em; margin-top: 20px;">
   <a href="FontDownload/Jijoninja-Thin.zip" class="yellow-link" style="white-space: nowrap;">jijoninja free download</a>
   </p>
-  
-  <!-- slide show comprensivo di css html e js da usare come modello -->
+
 </div>
 
     <div class="trial-slideshow-wrapper w-embed w-script">
@@ -103,8 +102,14 @@
           height: 800px;
           position: relative;
           background-color: #ddd;
-          margin: 20px 0 40px;
+          margin: 20px 0 0;
           overflow: hidden;
+          touch-action: pan-y;
+          cursor: grab;
+        }
+
+        .trial-slideshow.dragging {
+          cursor: grabbing;
         }
 
         .trial-slideshow-mask {
@@ -112,6 +117,10 @@
           width: 100%;
           height: 100%;
           transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .trial-slideshow-mask.no-transition {
+          transition: none;
         }
 
         .trial-slide {
@@ -125,16 +134,15 @@
           height: 100%;
           object-fit: cover;
           object-position: 50% 0%;
+          -webkit-user-drag: none;
+          user-select: none;
+          pointer-events: none;
         }
 
         .trial-slideshow-nav {
-          z-index: 2;
           text-align: center;
-          height: 40px;
-          margin: auto;
-          padding-bottom: 10px;
-          position: absolute;
-          inset: auto 0 0;
+          padding-top: 16px;
+          margin-bottom: 20px;
         }
 
         .trial-slideshow-dot {
@@ -142,7 +150,7 @@
           background-color: #0006;
           width: 1em;
           height: 1em;
-          margin: 0 3px 0.5em;
+          margin: 0 6px;
           border-radius: 100%;
           display: inline-block;
           transition: background-color 0.1s;
@@ -165,6 +173,7 @@
             <img
               src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_01.png"
               loading="lazy"
+              draggable="false"
               alt=""
             />
           </div>
@@ -172,6 +181,7 @@
             <img
               src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_02.png"
               loading="lazy"
+              draggable="false"
               alt=""
             />
           </div>
@@ -179,6 +189,7 @@
             <img
               src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_03.png"
               loading="lazy"
+              draggable="false"
               alt=""
             />
           </div>
@@ -186,6 +197,7 @@
             <img
               src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_04.png"
               loading="lazy"
+              draggable="false"
               alt=""
             />
           </div>
@@ -193,6 +205,7 @@
             <img
               src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_05.png"
               loading="lazy"
+              draggable="false"
               alt=""
             />
           </div>
@@ -200,15 +213,17 @@
             <img
               src="../cdn.prod.website-files.com/60a9b5241b55443606bfa800/jijoninja-trial-assets/jijotrial_06.png"
               loading="lazy"
+              draggable="false"
               alt=""
             />
           </div>
         </div>
-        <div class="trial-slideshow-nav" id="trialSlideshowNav"></div>
       </div>
+      <div class="trial-slideshow-nav" id="trialSlideshowNav"></div>
 
       <script>
         window.addEventListener("load", function () {
+          const box = document.getElementById("trialSlideshow");
           const mask = document.getElementById("trialSlideshowMask");
           const nav = document.getElementById("trialSlideshowNav");
           const slides = mask.querySelectorAll(".trial-slide");
@@ -216,6 +231,9 @@
           const delayMs = 4000; // stesso data-delay dello slider originale
           let current = 0;
           let autoplayTimer;
+          let isDragging = false;
+          let startX = 0;
+          let deltaX = 0;
 
           // Costruisco i pallini di navigazione
           slides.forEach((_, index) => {
@@ -240,10 +258,59 @@
             goToSlide((current + 1) % total);
           }
 
+          function prevSlide() {
+            goToSlide((current - 1 + total) % total);
+          }
+
           function restartAutoplay() {
             clearInterval(autoplayTimer);
             autoplayTimer = setInterval(nextSlide, delayMs);
           }
+
+          // --- Trascinamento con mouse e dito (Pointer Events copre entrambi) ---
+          function setDragTransform(px) {
+            mask.style.transform =
+              "translateX(calc(-" + current * 100 + "% + " + px + "px))";
+          }
+
+          box.addEventListener("pointerdown", (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            deltaX = 0;
+            box.classList.add("dragging");
+            mask.classList.add("no-transition");
+            clearInterval(autoplayTimer);
+            box.setPointerCapture(e.pointerId);
+          });
+
+          box.addEventListener("pointermove", (e) => {
+            if (!isDragging) return;
+            deltaX = e.clientX - startX;
+            setDragTransform(deltaX);
+          });
+
+          function endDrag() {
+            if (!isDragging) return;
+            isDragging = false;
+            box.classList.remove("dragging");
+            mask.classList.remove("no-transition");
+
+            const threshold = box.clientWidth * 0.15;
+            if (deltaX <= -threshold) {
+              nextSlide();
+            } else if (deltaX >= threshold) {
+              prevSlide();
+            } else {
+              goToSlide(current);
+            }
+            restartAutoplay();
+          }
+
+          box.addEventListener("pointerup", endDrag);
+          box.addEventListener("pointercancel", endDrag);
+          box.addEventListener("pointerleave", () => {
+            if (isDragging) endDrag();
+          });
 
           // Imposto esplicitamente il transform sulla prima slide: Safari a volte
           // non renderizza correttamente un valore di transform "assente" (default)
@@ -254,7 +321,6 @@
         });
       </script>
     </div>
-    <!-- Fine slide show comprensivo di css html e js da usare come modello -->
 
     <section class="section-text-area">
       <div class="html-embed-jijoninja w-embed w-script">
