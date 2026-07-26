@@ -106,6 +106,9 @@
           overflow: hidden;
           touch-action: pan-y;
           cursor: grab;
+          user-select: none;
+          -webkit-user-select: none;
+          -moz-user-select: none;
         }
 
         .trial-slideshow.dragging {
@@ -341,6 +344,7 @@
           }
 
           box.addEventListener("pointerdown", (e) => {
+            e.preventDefault(); // impedisce al browser di avviare una selezione testo/immagine
             if (isLocked) return; // niente nuovo swipe finché la slide non si è assestata
             isDragging = true;
             startX = e.clientX;
