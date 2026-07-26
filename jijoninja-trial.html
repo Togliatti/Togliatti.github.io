@@ -241,12 +241,28 @@
           let isDragging = false;
           let startX = 0;
           let deltaX = 0;
+          let isLocked = false;
+          let lockTimer = null;
+
+          // Blocca ogni nuova interazione (swipe, click sui dot, autoplay)
+          // finché la transizione in corso (+ l'eventuale scatto sul clone)
+          // non si è del tutto assestata. Niente più corse contro il tempo:
+          // semplicemente, finché l'immagine si sta ancora muovendo, non si
+          // può swipare di nuovo.
+          function lock() {
+            isLocked = true;
+            clearTimeout(lockTimer);
+            lockTimer = setTimeout(() => {
+              isLocked = false;
+            }, 520); // durata della transizione (500ms) + margine di sicurezza
+          }
 
           // Costruisco i pallini di navigazione (uno per ogni slide reale)
           originalSlides.forEach((_, index) => {
             const dot = document.createElement("div");
             dot.className = "trial-slideshow-dot" + (index === 0 ? " active" : "");
             dot.addEventListener("click", () => {
+              if (isLocked) return;
               setPosition(index + 1, true);
               restartAutoplay();
             });
@@ -271,6 +287,7 @@
             position = pos;
             if (animate) {
               mask.classList.remove("no-transition");
+              lock();
             } else {
               mask.classList.add("no-transition");
             }
@@ -303,10 +320,12 @@
           }
 
           function nextSlide() {
+            if (isLocked) return;
             setPosition(position + 1, true);
           }
 
           function prevSlide() {
+            if (isLocked) return;
             setPosition(position - 1, true);
           }
 
@@ -322,6 +341,7 @@
           }
 
           box.addEventListener("pointerdown", (e) => {
+            if (isLocked) return; // niente nuovo swipe finché la slide non si è assestata
             isDragging = true;
             startX = e.clientX;
             deltaX = 0;
