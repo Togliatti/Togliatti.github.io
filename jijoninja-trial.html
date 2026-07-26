@@ -92,6 +92,11 @@
 
     <div class="trial-slideshow-wrapper w-embed w-script">
       <style>
+        .trial-slideshow-wrapper {
+          width: 100%;
+          max-width: 1100px;
+        }
+
         .trial-slideshow {
           width: 100%;
           height: 500px;
@@ -202,7 +207,7 @@
       </div>
 
       <script>
-        (function () {
+        window.addEventListener("load", function () {
           const mask = document.getElementById("trialSlideshowMask");
           const nav = document.getElementById("trialSlideshowNav");
           const slides = mask.querySelectorAll(".trial-slide");
@@ -239,8 +244,13 @@
             autoplayTimer = setInterval(nextSlide, delayMs);
           }
 
+          // Imposto esplicitamente il transform sulla prima slide: Safari a volte
+          // non renderizza correttamente un valore di transform "assente" (default)
+          // dentro un flex container finché non avviene un reflow (es. il resize
+          // che triggerava il refresh manuale che avevi notato).
+          goToSlide(0);
           restartAutoplay();
-        })();
+        });
       </script>
     </div>
 
