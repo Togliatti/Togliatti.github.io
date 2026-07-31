@@ -3835,6 +3835,22 @@ textarea.w-input, textarea.w-select {
     overflow: clip;
   }
 }
+/* Questa regola dice al telefono di forzare l'altezza a prescindere dalle proporzioni dell'immagine */
+@media screen and (max-width: 479px) {
+    /* 1. Il contenitore si adatta alla larghezza dello schermo e asseconda l'altezza del contenuto */
+    .trial-slideshow {
+        width: 100vw !important;  
+        height: auto !important; /* <--- Cancella i pixel fissi! Dice al contenitore di allungarsi quanto serve */
+    }
+
+    /* 2. Le immagini dentro la slideshow si ridimensionano proporzionalmente senza tagliarsi */
+    .trial-slideshow img {
+        width: 100% !important;
+        height: auto !important; /* <--- Forza il browser a calcolare l'altezza matematica esatta della foto */
+        display: block !important;
+    }
+}
+
 
 
 #w-node-_74caf7b7-b059-73ac-3564-5f0250ab174d-ab280f73, #w-node-df5ece8e-6007-5cee-2c54-6b2e8758df11-ab280f73 {
