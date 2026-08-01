@@ -2383,6 +2383,14 @@ textarea.w-input, textarea.w-select {
   max-width: 1100px;
   margin-bottom: 40px;
   position: relative;
+  padding-left: 4vw;      /* nuovo */
+  padding-right: 4vw;     /* nuovo */
+  box-sizing: border-box; /* nuovo, evita che il padding sfori il max-width */
+}
+@media screen and (min-width: 992px) and (max-width: 1100px) {
+  .grid-columns {
+    max-width: 90vw;
+  }
 }
 
 .grid-columns.serif {
@@ -2985,6 +2993,9 @@ textarea.w-input, textarea.w-select {
   max-width: 1100px;
   padding-top: 60px;
   padding-bottom: 60px;
+  margin-left: auto;       /* Centra il blocco nello schermo */
+  margin-right: auto;      /* Centra il blocco nello schermo */
+  box-sizing: border-box;  /* Evita che i padding laterali allarghino il blocco oltre i 1100px */
 }
 
 .section-text-area {
@@ -3227,7 +3238,7 @@ textarea.w-input, textarea.w-select {
   }
 
   .brand-container {
-    max-width: 90%;
+    max-width: 90vw;
   }
 
   .div-block-flex {
@@ -3241,7 +3252,6 @@ textarea.w-input, textarea.w-select {
 
   .grid-columns {
     grid-template-rows: auto;
-    max-width: 90%;
   }
 
   .grid-columns.serif {
@@ -3386,7 +3396,6 @@ textarea.w-input, textarea.w-select {
 
   .grid-columns {
     grid-template-rows: auto;
-    max-width: 90vw;
   }
 
   .grid-columns.serif {
@@ -3581,11 +3590,6 @@ textarea.w-input, textarea.w-select {
 
   .div-block-arrow {
     width: 90vw;
-  }
-
-  .grid-columns {
-    grid-template-rows: auto;
-    max-width: 90vw;
   }
 
   .grid-columns.serif {
@@ -3835,19 +3839,72 @@ textarea.w-input, textarea.w-select {
     overflow: clip;
   }
 }
-/* Questa regola dice al telefono di forzare l'altezza a prescindere dalle proporzioni dell'immagine */
+
+/* 5. DESKTOP GRANDE (da 1101px in su) */
+@media screen and (min-width: 992px) and (max-width: 1100px) {
+  .grid-columns {
+    max-width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ==========================================================================
+   SLIDE SHOW: I MIEI BREAKPOINT PERSONALIZZATI (Scavalca Webflow)
+   ========================================================================== */
+
+/* 1. SMARTPHONE VERTICALE (da 0px a 479px) */
 @media screen and (max-width: 479px) {
-    /* 1. Il contenitore si adatta alla larghezza dello schermo e asseconda l'altezza del contenuto */
     .trial-slideshow {
         width: 100vw !important;  
-        height: auto !important; /* <--- Cancella i pixel fissi! Dice al contenitore di allungarsi quanto serve */
+        height: auto !important;
     }
-
-    /* 2. Le immagini dentro la slideshow si ridimensionano proporzionalmente senza tagliarsi */
     .trial-slideshow img {
         width: 100% !important;
-        height: auto !important; /* <--- Forza il browser a calcolare l'altezza matematica esatta della foto */
-        display: block !important;
+        height: auto !important;
+    }
+}
+
+/* 2. SMARTPHONE ORIZZONTALE / TABLET VERTICALE (da 480px a 767px) */
+@media screen and (min-width: 480px) and (max-width: 767px) {
+    .trial-slideshow {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 90% !important; /* Regola questa percentuale per allinearla al tuo testo */
+        height: auto !important;
+    }
+    .trial-slideshow img {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
+/* 3. TABLET ORIZZONTALE / LAPTOP PICCOLI (da 768px a 991px) */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .trial-slideshow {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 85% !important; /* Adatta la larghezza per i tablet grandi */
+        height: auto !important;
+    }
+    .trial-slideshow img {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
+/* 4. DESKTOP STANDARD (da 992px fino al tuo massimo di 1100px) */
+@media screen and (min-width: 992px) {
+    .trial-slideshow {
+        max-width: 1100px !important; /* Si ferma alla larghezza massima del tuo desktop */
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+    .trial-slideshow img {
+        width: 100% !important;
+        height: auto !important;
     }
 }
 
