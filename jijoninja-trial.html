@@ -163,11 +163,6 @@
           background-color: #000;
         }
 
-        @media screen and (max-width: 767px) {
-          .trial-slideshow {
-            height: 300px;
-          }
-        }
       </style>
 
       <div class="trial-slideshow" id="trialSlideshow">
@@ -504,6 +499,41 @@
             background: #fff;
             cursor: pointer;
             box-shadow: none;
+          }
+          /* ==========================================================================
+             CORREZIONE MARGINI: Forza il blocco a seguire la giustezza del testo 90vw
+             ========================================================================== */
+
+          /* Dai 0px fino a 991px (tablet compreso), costringiamo la sezione a non sbattere sui bordi */
+          @media screen and (max-width: 991px) {
+            .section-text-area {
+              max-width: 90vw !important;
+              width: 90vw !important;
+              margin-left: auto !important;  /* Centra la sezione */
+              margin-right: auto !important; /* Centra la sezione */
+            }
+            
+            .html-embed-jijoninja {
+              max-width: 90vw !important;
+              width: 100% !important;
+              padding-left: 0 !important;  /* Azzera padding che potrebbero spostare il testo */
+              padding-right: 0 !important;
+            }
+          }
+
+          /* Dai 992px in su (Desktop), blocchiamo tutto a 1100px mantenendolo centrato e allineato */
+          @media screen and (min-width: 992px) {
+            .section-text-area {
+              max-width: 1100px !important;
+              width: 90vw !important;        /* Segue il 90vw del layout finché non incontra i 1100px */
+              margin-left: auto !important;
+              margin-right: auto !important;
+            }
+            
+            .html-embed-jijoninja {
+              max-width: 1100px !important;
+              width: 100% !important;
+            }
           }
         </style>
 
