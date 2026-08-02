@@ -861,7 +861,14 @@ textarea.w-input, textarea.w-select {
     left: auto;
     right: auto;
   }
+  .grid-columns {
+    grid-template-rows: auto;
+    max-width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
+
 
 @media screen and (max-width: 767px) {
   .w-hidden-main, .w-hidden-medium {
@@ -929,6 +936,12 @@ textarea.w-input, textarea.w-select {
 
   .w-col-small-12 {
     width: 100%;
+  }
+    .grid-columns {
+    grid-template-rows: auto;
+    max-width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -2385,12 +2398,7 @@ textarea.w-input, textarea.w-select {
   position: relative;
   padding-left: 4vw;      /* nuovo */
   padding-right: 4vw;     /* nuovo */
-  box-sizing: border-box; /* nuovo, evita che il padding sfori il max-width */
-}
-@media screen and (min-width: 992px) and (max-width: 1100px) {
-  .grid-columns {
-    max-width: 90vw;
-  }
+  box-sizing: border-box; /* nuovo */
 }
 
 .grid-columns.serif {
@@ -3497,7 +3505,7 @@ textarea.w-input, textarea.w-select {
   }
 
   .section-text-area {
-    max-width: 90%;
+    max-width: 90vw;
   }
 
   .lottie-homepage {
@@ -3840,20 +3848,21 @@ textarea.w-input, textarea.w-select {
   }
 }
 
-/* 5. DESKTOP GRANDE (da 1101px in su) */
-@media screen and (min-width: 992px) and (max-width: 1100px) {
+/* Copre tutto sotto i 1100px */
+@media screen and (max-width: 1100px) {
   .grid-columns {
     max-width: 90vw;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 0;   /*annulla il padding della regola base */
+    padding-right: 0;  /*annulla il padding della regola base */
   }
 }
-
 /* ==========================================================================
-   SLIDE SHOW: I MIEI BREAKPOINT PERSONALIZZATI (Scavalca Webflow)
+   SLIDE SHOW: I MIEI BREAKPOINT PERSONALIZZATI (Scavalca Webflow) - CORRETTO
    ========================================================================== */
 
-/* 1. SMARTPHONE VERTICALE (da 0px a 479px) */
+/* 1. SMARTPHONE VERTICALE (da 0px a 479px) - Tutto schermo */
 @media screen and (max-width: 479px) {
     .trial-slideshow {
         width: 100vw !important;  
@@ -3865,12 +3874,13 @@ textarea.w-input, textarea.w-select {
     }
 }
 
-/* 2. SMARTPHONE ORIZZONTALE / TABLET VERTICALE (da 480px a 767px) */
-@media screen and (min-width: 480px) and (max-width: 767px) {
+/* 2. DA SMARTPHONE ORIZZONTALE A DESKTOP (da 480px a infinito) */
+@media screen and (min-width: 480px) {
     .trial-slideshow {
         margin-left: auto !important;
         margin-right: auto !important;
-        width: 90% !important; /* Regola questa percentuale per allinearla al tuo testo */
+        width: 90vw !important;       /* <--- COPIA IL TESTO: Segue fedelmente il 90vw del tuo layout */
+        max-width: 1100px !important;  /* Si blocca a 1100px insieme al resto del sito */
         height: auto !important;
     }
     .trial-slideshow img {
@@ -3879,34 +3889,7 @@ textarea.w-input, textarea.w-select {
     }
 }
 
-/* 3. TABLET ORIZZONTALE / LAPTOP PICCOLI (da 768px a 991px) */
-@media screen and (min-width: 768px) and (max-width: 991px) {
-    .trial-slideshow {
-        margin-left: auto !important;
-        margin-right: auto !important;
-        width: 85% !important; /* Adatta la larghezza per i tablet grandi */
-        height: auto !important;
-    }
-    .trial-slideshow img {
-        width: 100% !important;
-        height: auto !important;
-    }
-}
 
-/* 4. DESKTOP STANDARD (da 992px fino al tuo massimo di 1100px) */
-@media screen and (min-width: 992px) {
-    .trial-slideshow {
-        max-width: 1100px !important; /* Si ferma alla larghezza massima del tuo desktop */
-        margin-left: auto !important;
-        margin-right: auto !important;
-        width: 100% !important;
-        height: auto !important;
-    }
-    .trial-slideshow img {
-        width: 100% !important;
-        height: auto !important;
-    }
-}
 
 
 
