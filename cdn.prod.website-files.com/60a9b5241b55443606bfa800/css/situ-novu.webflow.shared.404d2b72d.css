@@ -861,12 +861,6 @@ textarea.w-input, textarea.w-select {
     left: auto;
     right: auto;
   }
-  .grid-columns {
-    grid-template-rows: auto;
-    max-width: 90vw;
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 
@@ -936,12 +930,6 @@ textarea.w-input, textarea.w-select {
 
   .w-col-small-12 {
     width: 100%;
-  }
-    .grid-columns {
-    grid-template-rows: auto;
-    max-width: 90vw;
-    margin-left: auto;
-    margin-right: auto;
   }
 }
 
@@ -2392,13 +2380,11 @@ textarea.w-input, textarea.w-select {
   grid-template-rows: auto;
   grid-template-areas: ".";
   grid-auto-columns: 1fr;
-  width: 100%;
-  max-width: 1100px;
+  width: min(90vw, 1100px);
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 40px;
   position: relative;
-  padding-left: 4vw;      /* nuovo */
-  padding-right: 4vw;     /* nuovo */
-  box-sizing: border-box; /* nuovo */
 }
 
 .grid-columns.serif {
@@ -3847,49 +3833,6 @@ textarea.w-input, textarea.w-select {
     overflow: clip;
   }
 }
-
-/* Copre tutto sotto i 1100px */
-@media screen and (max-width: 1100px) {
-  .grid-columns {
-    max-width: 90vw;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 0;   /*annulla il padding della regola base */
-    padding-right: 0;  /*annulla il padding della regola base */
-  }
-}
-/* ==========================================================================
-   SLIDE SHOW: I MIEI BREAKPOINT PERSONALIZZATI (Scavalca Webflow) - CORRETTO
-   ========================================================================== */
-
-/* 1. SMARTPHONE VERTICALE (da 0px a 479px) - Tutto schermo */
-@media screen and (max-width: 479px) {
-    .trial-slideshow {
-        width: 100vw !important;  
-        height: auto !important;
-    }
-    .trial-slideshow img {
-        width: 100% !important;
-        height: auto !important;
-    }
-}
-
-/* 2. DA SMARTPHONE ORIZZONTALE A DESKTOP (da 480px a infinito) */
-@media screen and (min-width: 480px) {
-    .trial-slideshow {
-        margin-left: auto !important;
-        margin-right: auto !important;
-        width: 90vw !important;       /* <--- COPIA IL TESTO: Segue fedelmente il 90vw del tuo layout */
-        max-width: 1100px !important;  /* Si blocca a 1100px insieme al resto del sito */
-        height: auto !important;
-    }
-    .trial-slideshow img {
-        width: 100% !important;
-        height: auto !important;
-    }
-}
-
-
 
 
 
