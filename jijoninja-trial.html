@@ -91,15 +91,18 @@
 </div>
 <!-- Slide Show Start here -->
     <div class="trial-slideshow-wrapper w-embed w-script">
+      
       <style>
         .trial-slideshow-wrapper {
           width: 100%;
           max-width: 1100px;
+          margin-left: auto;
+          margin-right: auto;
         }
 
         .trial-slideshow {
           width: 100%;
-          height: 600px;
+          height: 600px; /* Altezza fissa di base per desktop grandi */
           position: relative;
           background-color: #ddd;
           margin: 20px 0 0;
@@ -140,6 +143,8 @@
           -webkit-user-drag: none;
           user-select: none;
           pointer-events: none;
+          display: block !important;     /* ELIMINA LA BANDA GRIGIA */
+          vertical-align: middle;        /* Sicurezza aggiuntiva anti-banda grigia */
         }
 
         .trial-slideshow-nav {
@@ -163,7 +168,36 @@
           background-color: #000;
         }
 
+        /* RESPONSIVITÀ COLLIMATA AL TESTO 90VW */
+        @media screen and (max-width: 479px) {
+          .trial-slideshow-wrapper {
+            width: 100vw !important;
+            max-width: 100vw !important;
+          }
+          .trial-slideshow {
+            height: auto !important; /* Diventa flessibile per smartphone */
+          }
+          .trial-slide img {
+            height: auto !important;
+          }
+        }
+
+        @media screen and (min-width: 480px) {
+          .trial-slideshow-wrapper {
+            width: 90vw !important;
+            max-width: 1100px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+          }
+          .trial-slideshow {
+            height: auto !important; /* Diventa flessibile per smartphone orizzontali/tablet/desktop */
+          }
+          .trial-slide img {
+            height: auto !important;
+          }
+        }
       </style>
+
 
       <div class="trial-slideshow" id="trialSlideshow">
         <div class="trial-slideshow-mask" id="trialSlideshowMask">
@@ -461,12 +495,6 @@
             min-width: 0;
           }
 
-          @media screen and (max-width: 991px) {
-            .jij-size-control input[type="range"] {
-              flex: 1;
-            }
-          }
-
           input[type="range"] {
             -webkit-appearance: none;
             appearance: none;
@@ -500,9 +528,7 @@
             cursor: pointer;
             box-shadow: none;
           }
-          /* ==========================================================================
-             CORREZIONE MARGINI: Forza il blocco a seguire la giustezza del testo 90vw
-             ========================================================================== */
+          /* CORREZIONE MARGINI TEXT AREA: Forza il blocco a seguire la giustezza del testo 90vw */
 
           /* Dai 0px fino a 991px (tablet compreso), costringiamo la sezione a non sbattere sui bordi */
           @media screen and (max-width: 991px) {
