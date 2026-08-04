@@ -1193,7 +1193,7 @@ textarea.w-input {
 }
 
 .paragraph.disegn {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: var(--font-primary);
   font-weight: 100;
 }
 
@@ -2271,14 +2271,6 @@ textarea.w-input {
 
 .yellow-link.combo-leading {
     top: 0;
-  }
-
-.yellow-link.testo-bianco {
-    white-space: normal;
-    border-bottom-style: none;
-    font-family: Abcgaisyr trial, sans-serif;
-    font-size: 33px;
-    line-height: 120%;
   }
 
 .paragraph-blue.email {
