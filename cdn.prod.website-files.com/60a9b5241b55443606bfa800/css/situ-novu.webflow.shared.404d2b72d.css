@@ -2054,6 +2054,7 @@ textarea.w-input {
 
 .menutext.w--current {
     border-bottom-width: 0;
+    padding-bottom: 0;
   }
 
 .nav-menu {
