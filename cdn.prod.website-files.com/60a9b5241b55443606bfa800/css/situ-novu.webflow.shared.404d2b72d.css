@@ -26,6 +26,7 @@ body {
   font-size: 1.1rem;
   font-weight: 200;
   display: flex;
+  overflow-anchor: none;
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
@@ -1803,18 +1804,20 @@ textarea.w-input {
   color: #000;
 }
 
-.div-disegn-desk {
+.div-disegn-desk-v2 {
   z-index: 1;
   background-color: #0000;
   display: block;
   position: relative;
+  will-change: transform;
 }
 
-.div-disegn-cell-v, .div-disegn-pad {
+.div-disegn-cell-v-v2, .div-disegn-pad-v2 {
   z-index: 1;
   background-color: #0000;
   display: none;
   position: relative;
+  will-change: transform;
 }
 
 .heading-logofolio {
@@ -1929,11 +1932,47 @@ textarea.w-input {
   display: flex;
 }
 
+/* START CSS lottie dei due guerrieri jijoninja ovvero i due cretinetti in testa alla pagina */
+
 .lottie-homepage {
-  z-index: 2;
-  margin-top: -312px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1100 / 900;
+  margin-top: -110px;
   position: relative;
+  z-index: 2;
+  overflow: visible;
+  display: block;
 }
+
+@media screen and (max-width: 991px) {
+  .lottie-homepage {
+    margin-top: -110px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .lottie-homepage {
+    margin-top: -100px;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .lottie-homepage {
+    margin-top: 0px;
+  }
+}
+
+/* Viewport basso (tipicamente telefono in orizzontale):
+   deve stare per ultima per vincere sulle regole max-width sopra,
+   che altrimenti la sovrascriverebbero a parità di specificità */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .lottie-homepage {
+    margin-top: -120px;
+  }
+}
+
+/* END CSS lottie dei due guerrieri jijoninja ovvero i due cretinetti in testa alla pagina */
 
 .flex-oriz-mantide {
   place-content: flex-start center;
@@ -2138,11 +2177,11 @@ textarea.w-input {
     background-color: var(--white-smoke);
   }
 
-.div-disegn-desk {
+.div-disegn-desk-v2 {
     display: none;
   }
 
-.div-disegn-pad {
+.div-disegn-pad-v2 {
     display: block;
   }
 
@@ -2167,10 +2206,6 @@ textarea.w-input {
 
 .div-block-bottom-spacer {
     height: 20vh;
-  }
-
-.lottie-homepage {
-    margin-top: -221px;
   }
 }
 
@@ -2282,15 +2317,16 @@ textarea.w-input {
     font-size: 1.4rem;
   }
 
-.div-disegn-desk {
+.div-disegn-desk-v2 {
     display: none;
   }
 
-.div-disegn-cell-v {
+.div-disegn-cell-v-v2 {
     display: block;
+    will-change: transform;
   }
 
-.div-disegn-pad {
+.div-disegn-pad-v2 {
     display: none;
   }
 
@@ -2311,10 +2347,6 @@ textarea.w-input {
 
 .section-text-area {
     max-width: 90vw;
-  }
-
-.lottie-homepage {
-    margin-top: -124px;
   }
 
 .grid-foto.colonnasingola .didascalia {
@@ -2524,7 +2556,7 @@ textarea.w-input {
     margin-bottom: 24px;
   }
 
-.div-disegn-desk {
+.div-disegn-desk-v2 {
     grid-column-gap: 16px;
     grid-row-gap: 16px;
     grid-template-rows: auto auto;
@@ -2534,7 +2566,7 @@ textarea.w-input {
     bottom: auto;
   }
 
-.div-disegn-cell-v {
+.div-disegn-cell-v-v2 {
     grid-column-gap: 16px;
     grid-row-gap: 16px;
     grid-template-rows: auto auto;
@@ -2542,9 +2574,10 @@ textarea.w-input {
     grid-auto-columns: 1fr;
     display: block;
     bottom: auto;
+    will-change: transform;
   }
 
-.div-disegn-pad {
+.div-disegn-pad-v2 {
     grid-column-gap: 16px;
     grid-row-gap: 16px;
     grid-template-rows: auto auto;
@@ -2584,10 +2617,6 @@ textarea.w-input {
 
 .div-block-bottom-spacer {
     height: 5vh;
-  }
-
-.lottie-homepage {
-    margin-top: 55px;
   }
 
 .corpo-x-1 {
@@ -3505,9 +3534,5 @@ textarea.w-input {
 
 #w-node-e102c587-55ca-fac2-ae28-315e8323797a-66a5978b, #w-node-_75b07900-52cb-cc69-eea6-369785d7bfdd-66a5978b, #w-node-_40be7df2-c39e-4e98-adff-d5ff37f5bcac-66a5978b, #w-node-_53b227ec-d4ab-f7c6-ca5a-8df9f67e081c-66a5978b, #w-node-_7914a856-6c58-dd96-0153-c1d9f4f61ff3-66a5978b, #w-node-_05ea4606-3b08-c392-43c0-1669de0d0240-415e8ac2 {
     grid-area: span 1 / span 2 / span 1 / span 2;
-  }
-
-lottie-player.lottie-homepage {
-    margin-top: 55px;
   }
 }
