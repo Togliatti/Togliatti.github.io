@@ -21,9 +21,9 @@
 
   // Valori esatti recuperati dalla config Webflow (keyframe 100 = yValue)
   var TARGETS = [
-    { selector: ".div-disegn-desk", distance: 657 },
-    { selector: ".div-disegn-cell-v", distance: 338 },
-    { selector: ".div-disegn-pad", distance: 461 },
+    { selector: ".div-disegn-desk-v2", distance: 657 },
+    { selector: ".div-disegn-cell-v-v2", distance: 338 },
+    { selector: ".div-disegn-pad-v2", distance: 461 },
   ];
 
   // Quanto è "morbido" l'assestamento elastico.
