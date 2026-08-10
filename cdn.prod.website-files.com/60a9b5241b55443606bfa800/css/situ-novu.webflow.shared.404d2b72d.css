@@ -1678,9 +1678,10 @@ textarea.w-input {
   overflow: hidden;
 }
 
-.link-box._538pxsquare {
+.link-box.square {
   width: 100%;
-  height: 538px;
+  height: auto;
+  aspect-ratio: 1 / 1;
 }
 
 .link-box.jijogif {
@@ -1724,6 +1725,12 @@ textarea.w-input {
   font-size: 1.2rem;
   font-weight: 400;
   position: absolute;
+}
+
+@media screen and (max-width: 767px) {
+  .yellow-link.blue {
+    margin-left: 5vw;
+  }
 }
 
 .yellow-link.testo-bianco {
@@ -1953,13 +1960,13 @@ textarea.w-input {
 
 @media screen and (max-width: 767px) {
   .lottie-homepage {
-    margin-top: -100px;
+    margin-top: -90px;
   }
 }
 
 @media screen and (max-width: 479px) {
   .lottie-homepage {
-    margin-top: 0px;
+    margin-top: -50px;
   }
 }
 
@@ -2539,10 +2546,6 @@ textarea.w-input {
     height: auto;
   }
 
-.yellow-link.blue {
-    font-size: 1.2rem;
-  }
-
 .paragraph-blue.download {
     font-size: 1.1rem;
   }
@@ -2688,6 +2691,7 @@ textarea.w-input {
 }
 
 /* ------------------------------------------------------------------------CSS Slideshow — START */
+
 .trial-slideshow-wrapper {
   width: 100%;
   max-width: 1100px;
@@ -2697,7 +2701,7 @@ textarea.w-input {
 
 .trial-slideshow {
   width: 100%;
-  height: 600px; /* Altezza fissa di base per desktop grandi */
+  height: auto;
   position: relative;
   background-color: #ddd;
   margin: 20px 0 0;
@@ -2769,12 +2773,6 @@ textarea.w-input {
     width: 100vw;
     max-width: 100vw;
   }
-  .trial-slideshow {
-    height: auto; /* Diventa flessibile per smartphone */
-  }
-  .trial-slide img {
-    height: auto;
-  }
 }
 
 @media screen and (min-width: 480px) {
@@ -2783,12 +2781,6 @@ textarea.w-input {
     max-width: 1100px;
     margin-left: auto;
     margin-right: auto;
-  }
-  .trial-slideshow {
-    height: auto; /* Diventa flessibile per smartphone orizzontali/tablet/desktop */
-  }
-  .trial-slide img {
-    height: auto;
   }
 }
 /* ------------------------------------------------------------------------CSS Slideshow — END */
