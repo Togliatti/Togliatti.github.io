@@ -1177,14 +1177,6 @@ textarea.w-input {
   font-size: 105px;
 }
 
-.heading-palatino.bigg {
-  letter-spacing: -18px;
-  padding: 187px;
-  font-family: Changa One, Impact, sans-serif;
-  font-size: 162px;
-  line-height: .5em;
-}
-
 .paragraph {
   width: 100%;
   font-size: 1.2rem;
@@ -1450,7 +1442,7 @@ textarea.w-input {
   color: var(--white-smoke);
   background-color: #fff0;
   padding: 0;
-  font-family: Inconsolata, monospace;
+  font-family: var(--font-primary);
   font-size: 1.7rem;
   font-weight: 400;
 }
@@ -1763,13 +1755,13 @@ textarea.w-input {
   text-align: center;
   padding-top: 11px;
   padding-bottom: 11px;
-  font-family: Inconsolata, monospace;
+  font-family: var(--font-primary);
 }
 
 .paragraph-blue.download {
   color: var(--white-smoke);
   margin-bottom: 18px;
-  font-family: Inconsolata, monospace;
+  font-family: var(--font-primary);
   font-size: 1.5rem;
 }
 
