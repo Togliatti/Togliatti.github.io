@@ -2792,6 +2792,28 @@ textarea.w-input {
 /* Quando lo slideshow è un'anteprima dentro una cella della griglia (index.html),
    deve riempire il 100% della cella come tutti gli altri link — non seguire le
    sue regole 90vw/100vw pensate per l'uso standalone su jijoninja-trial.html */
+/* Stessa identica larghezza di .grid-100vw, ma display:block invece di grid:
+   nessun grid-auto-rows, quindi nessun vincolo di altezza riga forzata.
+   Usata per elementi (es. slideshow) che devono restare full-width senza
+   essere schiacciati/allungati dalla regola "riga quadrata" sotto i 479px. */
+.grid-100vw-block {
+  width: 100%;
+  max-width: 1100px;
+  margin: 21px auto;
+}
+@media screen and (max-width: 991px) {
+  .grid-100vw-block { margin: 16px auto; }
+}
+@media screen and (max-width: 767px) {
+  .grid-100vw-block { margin: 12px auto; }
+}
+@media screen and (max-width: 479px) {
+  .grid-100vw-block { margin: 16px auto; }
+}
+@media screen and (min-width: 768px) {
+  .grid-100vw-block { width: min(90vw, 1100px); }
+}
+
 .link-box .trial-slideshow-wrapper {
   width: 100%;
   max-width: 100%;
