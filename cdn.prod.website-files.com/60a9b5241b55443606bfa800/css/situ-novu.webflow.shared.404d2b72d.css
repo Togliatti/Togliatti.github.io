@@ -2250,6 +2250,7 @@ textarea.w-input {
   }
 
 .grid-columns {
+    grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
 
@@ -2787,6 +2788,14 @@ textarea.w-input {
   }
 }
 /* ------------------------------------------------------------------------CSS Slideshow — END */
+
+/* Quando lo slideshow è un'anteprima dentro una cella della griglia (index.html),
+   deve riempire il 100% della cella come tutti gli altri link — non seguire le
+   sue regole 90vw/100vw pensate per l'uso standalone su jijoninja-trial.html */
+.link-box .trial-slideshow-wrapper {
+  width: 100%;
+  max-width: 100%;
+}
 
 #w-node-_74caf7b7-b059-73ac-3564-5f0250ab174d-ab280f73, #w-node-df5ece8e-6007-5cee-2c54-6b2e8758df11-ab280f73 {
   grid-area: span 1 / span 2 / span 1 / span 2;
