@@ -1917,7 +1917,7 @@ textarea.w-input {
 
 .div-block-52 {
   width: 100%;
-  height: 10vh;
+  height: 50px;
 }
 
 .div-block-bottom-spacer {
@@ -2546,10 +2546,6 @@ textarea.w-input {
 
 .link-box._538pxsquare {
     height: auto;
-  }
-
-.yellow-link.blue {
-    font-size: 1.2rem;
   }
 
 .paragraph-blue.download {
