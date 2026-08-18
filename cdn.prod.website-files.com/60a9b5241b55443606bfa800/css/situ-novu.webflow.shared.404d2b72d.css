@@ -1898,8 +1898,9 @@ textarea.w-input {
   flex-flow: column wrap;
   place-content: flex-start;
   align-items: flex-start;
-  width: 100%;
-  max-width: 1100px;
+  width: min(90vw, 1100px); /* dichiarata esplicitamente, non solo max-width */
+  margin-left: auto;       /* Centra il blocco nello schermo */
+  margin-right: auto;      /* Centra il blocco nello schermo */
 }
 
 .icon-3, .icon-4 {
@@ -2192,10 +2193,6 @@ textarea.w-input {
 
 .html-embed-jijoninja {
     width: 100%;
-    max-width: 90vw;
-  }
-
-.html-embed-3 {
     max-width: 90vw;
   }
 
