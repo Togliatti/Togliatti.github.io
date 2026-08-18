@@ -2166,7 +2166,8 @@ textarea.w-input {
 
 .text-block-3 {
     color: #000c;
-    line-height: 10px;
+    line-height: 8px;
+    font-weight: 900;
   }
 
 .linea-trasparente.nero {
