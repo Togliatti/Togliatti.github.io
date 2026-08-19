@@ -2027,6 +2027,7 @@ textarea.w-input {
   flex-flow: wrap;
   justify-content: center;
   align-items: flex-start;
+  margin-bottom: 200px; /* Spazio tra la mantide e il resto della pagina */
   display: flex;
 }
 
@@ -2671,6 +2672,7 @@ textarea.w-input {
     width: 100vw;
     height: 120vw;
     margin-top: -80px;
+    margin-bottom: 50px;
     display: flex;
     position: sticky;
     top: 220px;
