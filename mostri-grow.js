@@ -61,7 +61,7 @@
     { sx: "l", dx: "l", c1: "O", c2: "O" },
     { sx: "t", dx: "t", c1: "O", c2: "O" },
     { sx: "p", dx: "p", c1: "O", c2: "O" },
-    { sx: "v", dx: "v", c1: "O", c2: "O" },
+    { sx: "r", dx: "r", c1: "U", c2: "U" },
   ];
 
   // Selettori dei 4 elementi-lettera dentro ogni mostro.
