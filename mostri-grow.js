@@ -138,7 +138,7 @@
   // 1 = il mostro sta per uscire dal bordo superiore (grasso)
   function computeRawProgress(container) {
     var rect = container.getBoundingClientRect();
-    var vh = window.innerHeight;
+    var vh = window.innerHeight+100; /*mostri più alti di 100vh, quindi consideriamo il fondo del viewport 100px più in basso*/
 
     // Finché la base del mostro non tocca il fondo del viewport, magro.
     if (rect.bottom > vh) return 0;
@@ -148,7 +148,8 @@
     var entryTop = vh - rect.height;
     if (entryTop <= 0) return 1; // mostro più alto del viewport: già a fondo scala
 
-    var progress = (entryTop - rect.top) / entryTop;
+    var topOffset = 100; /*consideriamo il bordo superiore del viewport 100px più in alto, così il mostro ingrassa prima di uscire*/
+    var progress = (entryTop - rect.top) / (entryTop - topOffset);
     if (progress < 0) progress = 0;
     if (progress > 1) progress = 1;
     return progress;

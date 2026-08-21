@@ -1074,7 +1074,7 @@ textarea.w-input {
 
 @font-face {
   font-family: Jijoninja Variable;
-  src: url("../6646aad927303a8819d7df26_JijoninjaVariableVF.ttf") format("truetype");
+  src: url("../JijoninjaVariableVF.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -2674,7 +2674,7 @@ textarea.w-input {
     margin-top: -80px;
     margin-bottom: 50px;
     display: flex;
-    position: sticky;
+    /*position: sticky; commentato in attesa di capire a che cazzo serve se non a fare casino sotto i 479px*/
     top: 220px;
     overflow: clip;
   }
