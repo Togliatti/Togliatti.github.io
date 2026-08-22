@@ -1985,6 +1985,7 @@ textarea.w-input {
   font-size: 30rem;
   font-weight: 100;
   line-height: 30rem;
+  transform: translateZ(0);
 }
 
 .corno-sinistro {
@@ -1997,7 +1998,7 @@ textarea.w-input {
   font-size: 35rem;
   font-weight: 100;
   line-height: 30rem;
-  transform: rotateX(180deg)rotateY(0)rotateZ(90deg);
+  transform: rotateX(180deg)rotateY(0)rotateZ(90deg) translateZ(0);
 }
 
 .corno-destro {
@@ -2010,7 +2011,7 @@ textarea.w-input {
   font-size: 35rem;
   font-weight: 100;
   line-height: 30rem;
-  transform: rotate(270deg);
+  transform: rotate(270deg) translateZ(0);
 }
 
 .corpo-x-2 {
@@ -2021,6 +2022,7 @@ textarea.w-input {
   font-size: 30rem;
   font-weight: 100;
   line-height: 30rem;
+  transform: translateZ(0);
 }
 
 .container-mantide {
