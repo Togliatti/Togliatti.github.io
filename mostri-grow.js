@@ -35,13 +35,19 @@
   var WGHT_MIN = 100;
   var WGHT_MAX = 900;
 
+  // Variante stilistica (ss01, ss02, ss03, ...) da applicare al corpo (c1/c2)
+  // quando un mostro non ne specifica una propria via "ss".
+  var DEFAULT_SS = "ss01";
+
   // Elenco dei mostri da comporre, nell'ordine in cui appaiono in pagina.
   // sx/dx = lettere delle corna (flex-oriz-mantide)
   // c1/c2 = lettere del corpo (flex-vert-mantide)
+  // ss    = (opzionale) variante stilistica del corpo, es. "ss03";
+  //         se omessa si usa DEFAULT_SS ("ss01").
   // Per aggiungere/togliere/riordinare un mostro basta modificare questo
   // array: l'HTML viene generato automaticamente da qui.
   var MOSTRI = [
-    { sx: "l", dx: "l", c1: "X", c2: "X" }, // mantide originale
+    { sx: "l", dx: "l", c1: "X", c2: "X", ss: "ss03" }, // mantide originale
     { sx: "p", dx: "p", c1: "X", c2: "X" },
     { sx: "z", dx: "z", c1: "X", c2: "X" },
     { sx: "a", dx: "a", c1: "X", c2: "X" }, // TODO: provare size più piccola
@@ -103,13 +109,18 @@
     var vert = document.createElement("div");
     vert.className = "w-layout-vflex flex-vert-mantide";
 
+    var ss = mostro.ss || DEFAULT_SS;
+    var featureSettings = '"' + ss + '" 1';
+
     var c1 = document.createElement("div");
     c1.className = "corpo-x-1";
     c1.textContent = mostro.c1;
+    c1.style.fontFeatureSettings = featureSettings;
 
     var c2 = document.createElement("div");
     c2.className = "corpo-x-2";
     c2.textContent = mostro.c2;
+    c2.style.fontFeatureSettings = featureSettings;
 
     vert.appendChild(c1);
     vert.appendChild(c2);
