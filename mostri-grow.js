@@ -48,13 +48,11 @@
   // array: l'HTML viene generato automaticamente da qui.
   var MOSTRI = [
     { sx: "l", dx: "l", c1: "X", c2: "X", ss: "ss03" }, // mantide originale
-    { sx: "p", dx: "p", c1: "X", c2: "X" },
-    { sx: "z", dx: "z", c1: "X", c2: "X" },
+    { sx: "l", dx: "l", c1: "A", c2: "A", ss: "ss01" },
+    { sx: "r", dx: "r", c1: "D", c2: "D", ss: "ss01" },
     { sx: "a", dx: "a", c1: "X", c2: "X" }, // TODO: provare size più piccola
     { sx: "b", dx: "b", c1: "X", c2: "X" },
     { sx: "d", dx: "d", c1: "X", c2: "X" },
-    { sx: "n", dx: "n", c1: "X", c2: "X" },
-    { sx: "m", dx: "m", c1: "X", c2: "X" },
     { sx: "o", dx: "o", c1: "X", c2: "X" },
     { sx: "t", dx: "t", c1: "X", c2: "X" },
     { sx: "w", dx: "w", c1: "X", c2: "X" },
