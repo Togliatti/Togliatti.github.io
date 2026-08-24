@@ -44,28 +44,112 @@
   // c1/c2 = lettere del corpo (flex-vert-mantide)
   // ss    = (opzionale) variante stilistica del corpo, es. "ss03";
   //         se omessa si usa DEFAULT_SS ("ss01").
+  // vars  = (opzionale) parametri di posizionamento/font specifici di
+  //         QUESTO mostro, che sovrascrivono solo i propri elementi senza
+  //         toccare gli altri mostri (vedi applyVars più sotto). Se un
+  //         mostro non specifica "vars", usa i valori di default definiti
+  //         nel CSS (quelli del mantide originale l/l X/X).
+  //         Chiavi disponibili, tutte opzionali:
+  //           fontFamily          -> font-family su tutti e 4 gli elementi
+  //           cornoDx.ml          -> margin-left di .corno-destro
+  //           corpoX1.mt          -> margin-top di .corpo-x-1
+  //           corpoX1.ml          -> margin-left di .corpo-x-1
+  //           corpoX2.mt          -> margin-top di .corpo-x-2
+  //           corpoX2.mr          -> margin-right di .corpo-x-2
+  //           corpoX2.transform   -> transform di .corpo-x-2
+  //           cornoDx.transform    -> transform di .corno-destro
+  //           cornoSx.transform    -> transform di .corno-sinistro
   // Per aggiungere/togliere/riordinare un mostro basta modificare questo
   // array: l'HTML viene generato automaticamente da qui.
   var MOSTRI = [
-    { sx: "l", dx: "l", c1: "X", c2: "X", ss: "ss03" }, // mantide originale
-    { sx: "l", dx: "l", c1: "A", c2: "A", ss: "ss01" },
-    { sx: "r", dx: "r", c1: "D", c2: "D", ss: "ss01" },
-    { sx: "a", dx: "a", c1: "X", c2: "X" }, // TODO: provare size più piccola
+    { sx: "l", dx: "l", c1: "X", c2: "X", ss: "ss01" }, // mantide originale
+    {
+      sx: "l",
+      dx: "l",
+      c1: "A",
+      c2: "A",
+      ss: "ss01",
+      // Mostro "ridicolo": disegnato con Jijoninja non-variable (swash
+      // capitals), quindi il font è statico e l'ingrassamento via scroll
+      // non avrà effetto visivo su questi 4 elementi finché non esisterà
+      // una versione variable del font con le swash (in lavorazione in
+      // Glyphs). Nel frattempo il mostro resta fermo sul disegno statico.
+      // Il font originale è "Jijoninja Variable"
+      vars: {
+        fontFamily: "Jijoninja, sans-serif",
+        cornoDx: { ml: "170px" },
+        corpoX1: { mt: "-135px", ml: "-100px" },
+        corpoX2: { mt: "-480px", mr: "-100px", transform: "scaleX(-1)" },
+      },
+    },
+    // Mostro rr DD:
+    {
+      sx: "r",
+      dx: "r",
+      c1: "K",
+      c2: "K",
+      ss: "ss01",
+      vars: {
+        fontFamily: "Jijoninja, sans-serif",
+        cornoDx: { ml: "50px", transform: "scaleX(-1)" },
+        cornoSx: { transform: "scaleX(-1)" },
+        corpoX1: { mt: "0px", ml: "-290px", fs: "35rem" },
+        corpoX2: { mt: "-480px", mr: "-290px", transform: "scaleX(-1)", fs: "35rem" },
+      },
+    },
+    // Mostro ee XX ss02:
+    {
+      sx: "e",
+      dx: "e",
+      c1: "X",
+      c2: "X",
+      ss: "ss02",
+      vars: {
+        fontFamily: "Jijoninja Variable, sans-serif",
+        cornoDx: { ml: "-35px", transform: "scaleX(-1)" },
+        cornoSx: { transform: "scaleX(-1)" },
+        corpoX1: { mt: "-90px" },
+        corpoX2: { mt: "-300px" },
+      },
+    },
+    // Mostro dd XX ss02:
+    {
+      sx: "p",
+      dx: "p",
+      c1: "X",
+      c2: "X",
+      ss: "ss02",
+      vars: {
+        fontFamily: "Jijoninja Variable, sans-serif",
+        cornoDx: { ml: "-40px", transform: "scaleX(-1)" },
+        cornoSx: { transform: "scaleX(-1)" },
+        corpoX1: { mt: "-220px" },/* 230 cattivo */
+        corpoX2: { mt: "-160px" },
+      },
+    },
     { sx: "b", dx: "b", c1: "X", c2: "X" },
-    { sx: "d", dx: "d", c1: "X", c2: "X" },
-    { sx: "o", dx: "o", c1: "X", c2: "X" },
-    { sx: "t", dx: "t", c1: "X", c2: "X" },
+    // Mostro ww XX ss02:
+    {
+      sx: "w",
+      dx: "w",
+      c1: "X",
+      c2: "X",
+      ss: "ss02",
+      vars: {
+        fontFamily: "Jijoninja Variable, sans-serif",
+        cornoDx: { ml: "40px" },
+        cornoSx: { ml: "-40px" },
+        corpoX1: { mt: "-320px" },/* 230 cattivo, 200 buono */
+        corpoX2: { mt: "-360px" },
+      },
+    },
     { sx: "w", dx: "w", c1: "X", c2: "X" },
     { sx: "x", dx: "x", c1: "X", c2: "X" },
     { sx: "y", dx: "y", c1: "X", c2: "X" },
     { sx: "p", dx: "p", c1: "H", c2: "H" },
-    { sx: "d", dx: "d", c1: "H", c2: "H" },
-    { sx: "d", dx: "d", c1: "M", c2: "M" },
     { sx: "k", dx: "k", c1: "O", c2: "O" },
     { sx: "l", dx: "l", c1: "O", c2: "O" },
-    { sx: "t", dx: "t", c1: "O", c2: "O" },
     { sx: "p", dx: "p", c1: "O", c2: "O" },
-    { sx: "r", dx: "r", c1: "U", c2: "U" },
   ];
 
   // Selettori dei 4 elementi-lettera dentro ogni mostro.
@@ -82,9 +166,76 @@
 
   var instances = [];
 
+  // Applica i parametri opzionali di un mostro (mostro.vars) come CSS
+  // custom properties inline sui SUOI elementi. Non tocca il CSS globale:
+  // ogni mostro porta i propri valori sul proprio nodo DOM, quindi due
+  // mostri con la stessa classe (es. .corpo-x-1) possono avere margin,
+  // font, transform diversi senza collidere tra loro. Se mostro.vars è
+  // assente o una chiave non è specificata, l'elemento cade sul fallback
+  // definito nel CSS (--corpo-x1-mt, ecc.) e si comporta come il mostro
+  // originale.
+  function applyVars(container, vars) {
+    if (!vars) return;
+
+    if (vars.fontFamily) {
+      LETTER_SELECTORS.forEach(function (sel) {
+        var el = container.querySelector(sel);
+        if (el) el.style.setProperty("--mostro-font", vars.fontFamily);
+      });
+    }
+
+    var cornoDx = container.querySelector(".corno-destro");
+    if (cornoDx && vars.cornoDx) {
+      if (vars.cornoDx.ml != null) {
+        cornoDx.style.setProperty("--corno-dx-ml", vars.cornoDx.ml);
+      }
+      // Nota: cornoDx.transform non è un custom property CSS, ma viene
+      // comunque applicato inline come style.transform, così da poter
+      // speculare il corno destro senza toccare il CSS globale.
+      if (vars.cornoDx.transform != null) {
+        cornoDx.style.setProperty("--corno-dx-transform", vars.cornoDx.transform);
+      }
+    }
+
+    var cornoSx = container.querySelector(".corno-sinistro");
+    if (cornoSx && vars.cornoSx) {
+      if (vars.cornoSx.transform != null) {
+        cornoSx.style.setProperty("--corno-sx-transform", vars.cornoSx.transform);
+      }
+    }
+
+    var corpoX1 = container.querySelector(".corpo-x-1");
+    if (corpoX1 && vars.corpoX1) {
+      if (vars.corpoX1.mt != null) {
+        corpoX1.style.setProperty("--corpo-x1-mt", vars.corpoX1.mt);
+      }
+      if (vars.corpoX1.ml != null) {
+        corpoX1.style.setProperty("--corpo-x1-ml", vars.corpoX1.ml);
+      }
+      if (vars.corpoX1.fs != null) {
+        corpoX1.style.setProperty("--corpo-x1-fs", vars.corpoX1.fs);
+      }
+    }
+
+    var corpoX2 = container.querySelector(".corpo-x-2");
+    if (corpoX2 && vars.corpoX2) {
+      if (vars.corpoX2.mt != null) {
+        corpoX2.style.setProperty("--corpo-x2-mt", vars.corpoX2.mt);
+      }
+      if (vars.corpoX2.mr != null) {
+        corpoX2.style.setProperty("--corpo-x2-mr", vars.corpoX2.mr);
+      }
+      if (vars.corpoX2.transform != null) {
+        corpoX2.style.setProperty("--corpo-x2-transform", vars.corpoX2.transform);
+      }
+      if (vars.corpoX2.fs != null) {
+        corpoX2.style.setProperty("--corpo-x2-fs", vars.corpoX2.fs);
+      }
+    }
+  }
+
   // Costruisce il markup di un mostro con le stesse classi/struttura
-  // usate finora, così la CSS esistente (allineamenti, sticky, ecc.)
-  // continua a funzionare senza modifiche.
+  // usate finora, così la CSS esistente continua a funzionare senza modifiche.
   function buildMonsterEl(mostro, index) {
     var container = document.createElement("div");
     container.className = "container-mantide";
@@ -125,6 +276,8 @@
 
     container.appendChild(oriz);
     container.appendChild(vert);
+
+    applyVars(container, mostro.vars);
 
     return container;
   }

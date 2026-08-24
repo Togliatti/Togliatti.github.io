@@ -1979,52 +1979,56 @@ textarea.w-input {
 
 
 .corno-sinistro {
-  color: #000;
+  color: #303152;
   text-align: right;
   width: 10rem;
   height: 25rem;
+  margin-top: var(--corno-sx-mt, 0px);
   transform-style: preserve-3d;
-  font-family: Jijoninja, sans-serif;
+  font-family: var(--mostro-font, Jijoninja Variable, sans-serif);
   font-size: 35rem;
   font-weight: 100;
   line-height: 30rem;
-  transform: rotateX(180deg)rotateY(0)rotateZ(90deg);
+  transform: rotateX(180deg)rotateY(0)rotateZ(90deg) var(--corno-sx-transform, );/* di default nessun ribaltamento */
 }
 
 .corno-destro {
-  color: #000;
+  color: #303152;
   text-align: right;
   width: 10rem;
   height: 25rem;
-  margin-left: 170px;
-  font-family: Jijoninja, sans-serif;
+  margin-left: var(--corno-dx-ml, 126px);
+  font-family: var(--mostro-font, Jijoninja Variable, sans-serif);
   font-size: 35rem;
   font-weight: 100;
   line-height: 30rem;
-  transform: rotate(270deg);
+  transform: rotate(270deg) var(--corno-dx-transform, );/* di default nessun ribaltamento */
 }
 
 .corpo-x-1 {
-  color: #000;
+  color: #303152;
   font-variation-settings: "wght" 100;
-  margin-top: -135px;
-  margin-left: -100px;
-  font-family: Jijoninja, sans-serif;
-  font-size: 30rem;
+  margin-top: var(--corpo-x1-mt, -235px);
+  margin-left: var(--corpo-x1-ml, 0px);
+  font-family: var(--mostro-font, Jijoninja Variable, sans-serif);
+  font-size: var(--corpo-x1-fs, 30rem);/* Questa singola riga gestisce sia il valore dinamico che quello di default
+  Se JavaScript interviene: Trova vars.corpoX1.fs, applica la variabile --corpo-x1-fs solo a quello specifico elemento
+  e il font cambierà dinamicamente.Se JavaScript NON interviene (o il valore è null): Il browser nota che
+  la variabile --corpo-x1-fs non è stata definita e applica automaticamente il valore di fallback dopo la virgola, cioè 30rem.*/
   font-weight: 100;
   line-height: 30rem;
 }
 
 .corpo-x-2 {
-  color: #000;
+  color: #303152;
   font-variation-settings: "wght" 100;
-  margin-top: -480px;
-  margin-right: -100px;
-  font-family: Jijoninja, sans-serif;
-  font-size: 30rem;
+  margin-top: var(--corpo-x2-mt, -325px);
+  margin-right: var(--corpo-x2-mr, 0px);
+  font-family: var(--mostro-font, Jijoninja Variable, sans-serif);
+  font-size: var(--corpo-x2-fs, 30rem);
   font-weight: 100;
   line-height: 30rem; /* Mantiene la stessa altezza della linea per allineare verticalmente il testo */
-  transform: scaleX(-1); /* Riflette l'elemento orizzontalmente */
+  transform: var(--corpo-x2-transform, none); /* di default nessun ribaltamento */
 }
 
 .container-mantide {
