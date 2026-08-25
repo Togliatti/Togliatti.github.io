@@ -2017,6 +2017,7 @@ textarea.w-input {
   la variabile --corpo-x1-fs non è stata definita e applica automaticamente il valore di fallback dopo la virgola, cioè 30rem.*/
   font-weight: 100;
   line-height: 30rem;
+  transform: var(--corpo-x1-transform, none); /* di default nessun ribaltamento */
 }
 
 .corpo-x-2 {

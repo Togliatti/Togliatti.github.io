@@ -82,7 +82,7 @@
         corpoX2: { mt: "-480px", mr: "-100px", transform: "scaleX(-1)" },
       },
     },
-    // Mostro rr DD:
+    // Mostro rr KK:
     {
       sx: "r",
       dx: "r",
@@ -90,7 +90,7 @@
       c2: "K",
       ss: "ss01",
       vars: {
-        fontFamily: "Jijoninja, sans-serif",
+        fontFamily: "Jijoninja Variable, sans-serif",
         cornoDx: { ml: "50px", transform: "scaleX(-1)" },
         cornoSx: { transform: "scaleX(-1)" },
         corpoX1: { mt: "0px", ml: "-290px", fs: "35rem" },
@@ -139,17 +139,45 @@
         fontFamily: "Jijoninja Variable, sans-serif",
         cornoDx: { ml: "40px" },
         cornoSx: { ml: "-40px" },
-        corpoX1: { mt: "-320px" },/* 230 cattivo, 200 buono */
+        corpoX1: { mt: "-320px" },
         corpoX2: { mt: "-360px" },
       },
     },
-    { sx: "w", dx: "w", c1: "X", c2: "X" },
+    // Mostro xx XX ss02:
+    {
+      sx: "x",
+      dx: "x",
+      c1: "X",
+      c2: "X",
+      ss: "ss02",
+      vars: {
+        fontFamily: "Jijoninja Variable, sans-serif",
+        cornoDx: { ml: "60px", fs: "35rem" },
+        cornoSx: { ml: "-600px", fs: "35rem" },
+        corpoX1: { mt: "-350px" },
+        corpoX2: { mt: "-360px" },
+      },
+    },
     { sx: "x", dx: "x", c1: "X", c2: "X" },
-    { sx: "y", dx: "y", c1: "X", c2: "X" },
+    // Mostro yy XX la nonna:
+    {
+      sx: "y",
+      dx: "y",
+      c1: "S",
+      c2: "S",
+      ss: "ss01",
+      vars: {
+        fontFamily: "Jijoninja Variable, sans-serif",
+        cornoDx: { ml: "-80px", fs: "35rem" },
+        cornoSx: { ml: "-600px", fs: "35rem" },
+        corpoX1: { mt: "-150px", transform: "scaleX(-1)" },
+        corpoX2: { mt: "-205px" },
+      },
+    },
     { sx: "p", dx: "p", c1: "H", c2: "H" },
     { sx: "k", dx: "k", c1: "O", c2: "O" },
     { sx: "l", dx: "l", c1: "O", c2: "O" },
-    { sx: "p", dx: "p", c1: "O", c2: "O" },
+    { sx: "o", dx: "o", c1: "V", c2: "V" },
   ];
 
   // Selettori dei 4 elementi-lettera dentro ogni mostro.
@@ -214,6 +242,9 @@
       }
       if (vars.corpoX1.fs != null) {
         corpoX1.style.setProperty("--corpo-x1-fs", vars.corpoX1.fs);
+      }
+      if (vars.corpoX1.transform != null) {
+        corpoX1.style.setProperty("--corpo-x1-transform", vars.corpoX1.transform);
       }
     }
 
