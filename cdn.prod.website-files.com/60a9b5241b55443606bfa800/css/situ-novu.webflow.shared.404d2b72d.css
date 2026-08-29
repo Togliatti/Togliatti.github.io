@@ -1066,7 +1066,7 @@ textarea.w-input {
 
 @font-face {
   font-family: Jijoninja;
-  src: url("../6a3d2b42ce17eb2830ed3847_Jijoninja-Thin.woff2") format("woff2");
+  src: url("../Jijoninja-Thin.woff2") format("woff2");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -1075,6 +1075,14 @@ textarea.w-input {
 @font-face {
   font-family: Jijoninja Variable;
   src: url("../JijoninjaVariableVF.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Jijoninja Stronzo;
+  src: url("../JijoninjaStronzoVF.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -1984,11 +1992,12 @@ textarea.w-input {
   width: 10rem;
   height: 25rem;
   margin-top: var(--corno-sx-mt, 0px);
+  margin-left: var(--corno-sx-ml, 0px);
   transform-style: preserve-3d;
   font-family: var(--mostro-font, Jijoninja Variable, sans-serif);
-  font-size: 35rem;
+  font-size: var(--corno-sx-fs, 35rem);
   font-weight: 100;
-  line-height: 30rem;
+  line-height: var(--corno-sx-lh, 30rem);
   transform: rotateX(180deg)rotateY(0)rotateZ(90deg) var(--corno-sx-transform, );/* di default nessun ribaltamento */
 }
 
@@ -1997,11 +2006,12 @@ textarea.w-input {
   text-align: right;
   width: 10rem;
   height: 25rem;
+  margin-top: var(--corno-dx-mt, 0px);
   margin-left: var(--corno-dx-ml, 126px);
   font-family: var(--mostro-font, Jijoninja Variable, sans-serif);
-  font-size: 35rem;
+  font-size: var(--corno-dx-fs, 35rem);
   font-weight: 100;
-  line-height: 30rem;
+  line-height: var(--corno-dx-lh, 30rem);
   transform: rotate(270deg) var(--corno-dx-transform, );/* di default nessun ribaltamento */
 }
 
@@ -2016,7 +2026,7 @@ textarea.w-input {
   e il font cambierà dinamicamente.Se JavaScript NON interviene (o il valore è null): Il browser nota che
   la variabile --corpo-x1-fs non è stata definita e applica automaticamente il valore di fallback dopo la virgola, cioè 30rem.*/
   font-weight: 100;
-  line-height: 30rem;
+  line-height: var(--corpo-x1-lh, 30rem);
   transform: var(--corpo-x1-transform, none); /* di default nessun ribaltamento */
 }
 
@@ -2028,7 +2038,7 @@ textarea.w-input {
   font-family: var(--mostro-font, Jijoninja Variable, sans-serif);
   font-size: var(--corpo-x2-fs, 30rem);
   font-weight: 100;
-  line-height: 30rem; /* Mantiene la stessa altezza della linea per allineare verticalmente il testo */
+  line-height: var(--corpo-x2-lh, 30rem); /* Mantiene la stessa altezza della linea per allineare verticalmente il testo, ora sovrascrivibile per mostro/breakpoint */
   transform: var(--corpo-x2-transform, none); /* di default nessun ribaltamento */
 }
 
@@ -2643,29 +2653,20 @@ textarea.w-input {
     height: 5vh;
   }
 
-.corpo-x-1 {
-    margin-top: 0;
-    font-size: 15rem;
-    line-height: 15rem;
-  }
-
+/* corno-sinistro/destro, corpo-x-1/x-2: margin-top/left/right, font-size e
+   line-height NON sono più hardcoded qui. Sono gestiti per-mostro da
+   mostri-grow.js tramite le custom property (--corno-sx-mt, --corpo-x1-fs,
+   ecc.), lette da matchMedia("(max-width: 479px)") e scritte via
+   varsMobile. Prima di questa modifica questi valori erano fissi e
+   sovrascrivevano silenziosamente il posizionamento di OGNI mostro con i
+   valori tarati solo sul mantide originale (l/l X/X): da qui il bug per
+   cui sotto i 479px i mostri con vars personalizzate si disallineavano. */
 .corno-sinistro {
     text-align: left;
-    margin-top: -117px;
-    font-size: 18rem;
   }
 
 .corno-destro {
     text-align: left;
-    margin-top: -117px;
-    margin-left: -47px;
-    font-size: 18rem;
-  }
-
-.corpo-x-2 {
-    margin-top: -165px;
-    font-size: 15rem;
-    line-height: 15rem;
   }
 
 .flex-vert-mantide {

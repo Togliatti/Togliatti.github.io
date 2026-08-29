@@ -44,25 +44,72 @@
   // c1/c2 = lettere del corpo (flex-vert-mantide)
   // ss    = (opzionale) variante stilistica del corpo, es. "ss03";
   //         se omessa si usa DEFAULT_SS ("ss01").
-  // vars  = (opzionale) parametri di posizionamento/font specifici di
-  //         QUESTO mostro, che sovrascrivono solo i propri elementi senza
-  //         toccare gli altri mostri (vedi applyVars più sotto). Se un
-  //         mostro non specifica "vars", usa i valori di default definiti
-  //         nel CSS (quelli del mantide originale l/l X/X).
-  //         Chiavi disponibili, tutte opzionali:
+  // varsDesktop = parametri di posizionamento/font di QUESTO mostro validi
+  //         di default (desktop e in generale ovunque non venga
+  //         sovrascritto da varsMobile). Se un mostro non specifica
+  //         "varsDesktop", usa i valori di fallback definiti nel CSS
+  //         (quelli del mantide originale l/l X/X).
+  // varsMobile = (opzionale) parametri validi SOLO sotto i 479px
+  //         (vedi MOBILE_QUERY più sotto), che sovrascrivono, chiave per
+  //         chiave, i corrispondenti valori di varsDesktop. Se una chiave
+  //         non è specificata in varsMobile, quell'elemento eredita il
+  //         valore di varsDesktop anche sotto i 479px (non torna al
+  //         fallback CSS). Se un mostro non specifica affatto
+  //         "varsMobile", sotto i 479px eredita integralmente
+  //         varsDesktop: niente più valori "presi in prestito" dal
+  //         mantide originale come accadeva quando questi valori erano
+  //         hardcoded nel CSS.
+  //         Chiavi disponibili in entrambi gli oggetti, tutte opzionali:
   //           fontFamily          -> font-family su tutti e 4 gli elementi
+  //           cornoSx.mt          -> margin-top di .corno-sinistro
+  //           cornoSx.ml          -> margin-left di .corno-sinistro
+  //           cornoSx.fs          -> font-size di .corno-sinistro
+  //           cornoSx.lh          -> line-height di .corno-sinistro
+  //                                  (essendo il corno ruotato, questo
+  //                                  sposta l'elemento in orizzontale, non
+  //                                  in verticale)
+  //           cornoSx.transform   -> transform aggiuntivo di .corno-sinistro
+  //                                  (si somma alla rotazione base, non la
+  //                                  sostituisce: usarlo per scaleX(-1))
+  //           cornoDx.mt          -> margin-top di .corno-destro
   //           cornoDx.ml          -> margin-left di .corno-destro
+  //           cornoDx.fs          -> font-size di .corno-destro
+  //           cornoDx.lh          -> line-height di .corno-destro (idem sopra)
+  //           cornoDx.transform   -> transform aggiuntivo di .corno-destro
   //           corpoX1.mt          -> margin-top di .corpo-x-1
   //           corpoX1.ml          -> margin-left di .corpo-x-1
+  //           corpoX1.fs          -> font-size di .corpo-x-1
+  //           corpoX1.lh          -> line-height di .corpo-x-1
+  //           corpoX1.transform   -> transform di .corpo-x-1
   //           corpoX2.mt          -> margin-top di .corpo-x-2
   //           corpoX2.mr          -> margin-right di .corpo-x-2
+  //           corpoX2.fs          -> font-size di .corpo-x-2
+  //           corpoX2.lh          -> line-height di .corpo-x-2
   //           corpoX2.transform   -> transform di .corpo-x-2
-  //           cornoDx.transform    -> transform di .corno-destro
-  //           cornoSx.transform    -> transform di .corno-sinistro
   // Per aggiungere/togliere/riordinare un mostro basta modificare questo
   // array: l'HTML viene generato automaticamente da qui.
   var MOSTRI = [
-    { sx: "l", dx: "l", c1: "X", c2: "X", ss: "ss01" }, // mantide originale
+    {
+      sx: "l",
+      dx: "l",
+      c1: "X",
+      c2: "X",
+      ss: "ss01", // mantide originale
+      // varsMobile riproduce esattamente i valori che prima di questa
+      // modifica erano hardcoded in CSS sotto i 479px: nessun cambiamento
+      // visivo per questo mostro rispetto a prima.
+      varsDesktop: {
+        fontFamily: "Jijoninja Stronzo, sans-serif",
+      },
+      varsMobile: {
+        fontFamily: "Jijoninja Stronzo, sans-serif",
+        cornoSx: { mt: "-117px", fs: "18rem" },
+        cornoDx: { mt: "-117px", ml: "-47px", fs: "18rem" },
+        corpoX1: { mt: "0px", fs: "15rem", lh: "15rem" },
+        corpoX2: { mt: "-165px", fs: "15rem", lh: "15rem" },
+      },
+    },
+    // Mostro ll AA Il ginnico che fa compassione
     {
       sx: "l",
       dx: "l",
@@ -75,26 +122,26 @@
       // una versione variable del font con le swash (in lavorazione in
       // Glyphs). Nel frattempo il mostro resta fermo sul disegno statico.
       // Il font originale è "Jijoninja Variable"
-      vars: {
-        fontFamily: "Jijoninja, sans-serif",
+      varsDesktop: {
+        fontFamily: "Jijoninja Stronzo, sans-serif",
         cornoDx: { ml: "170px" },
         corpoX1: { mt: "-135px", ml: "-100px" },
         corpoX2: { mt: "-480px", mr: "-100px", transform: "scaleX(-1)" },
       },
     },
-    // Mostro rr KK:
+    // Mostro rr KK Quello che incute un leggero timore:
     {
       sx: "r",
       dx: "r",
       c1: "K",
       c2: "K",
       ss: "ss01",
-      vars: {
-        fontFamily: "Jijoninja Variable, sans-serif",
+      varsDesktop: {
+        fontFamily: "Jijoninja Stronzo, sans-serif",
         cornoDx: { ml: "50px", transform: "scaleX(-1)" },
         cornoSx: { transform: "scaleX(-1)" },
-        corpoX1: { mt: "0px", ml: "-290px", fs: "35rem" },
-        corpoX2: { mt: "-480px", mr: "-290px", transform: "scaleX(-1)", fs: "35rem" },
+        corpoX1: { mt: "50px", ml: "-390px", fs: "35rem" },
+        corpoX2: { mt: "-480px", mr: "-390px", transform: "scaleX(-1)", fs: "35rem" },
       },
     },
     // Mostro ee XX ss02:
@@ -104,8 +151,8 @@
       c1: "X",
       c2: "X",
       ss: "ss02",
-      vars: {
-        fontFamily: "Jijoninja Variable, sans-serif",
+      varsDesktop: {
+        fontFamily: "Jijoninja Stronzo, sans-serif",
         cornoDx: { ml: "-35px", transform: "scaleX(-1)" },
         cornoSx: { transform: "scaleX(-1)" },
         corpoX1: { mt: "-90px" },
@@ -119,15 +166,15 @@
       c1: "X",
       c2: "X",
       ss: "ss02",
-      vars: {
-        fontFamily: "Jijoninja Variable, sans-serif",
+      varsDesktop: {
+        fontFamily: "Jijoninja Stronzo, sans-serif",
         cornoDx: { ml: "-40px", transform: "scaleX(-1)" },
         cornoSx: { transform: "scaleX(-1)" },
         corpoX1: { mt: "-220px" },/* 230 cattivo */
         corpoX2: { mt: "-160px" },
       },
     },
-    { sx: "b", dx: "b", c1: "X", c2: "X" },
+    
     // Mostro ww XX ss02:
     {
       sx: "w",
@@ -135,10 +182,10 @@
       c1: "X",
       c2: "X",
       ss: "ss02",
-      vars: {
-        fontFamily: "Jijoninja Variable, sans-serif",
-        cornoDx: { ml: "40px" },
-        cornoSx: { ml: "-40px" },
+      varsDesktop: {
+        fontFamily: "Jijoninja Stronzo, sans-serif",
+        cornoDx: { ml: "30px" },
+        cornoSx: { ml: "0px" },
         corpoX1: { mt: "-320px" },
         corpoX2: { mt: "-360px" },
       },
@@ -150,27 +197,27 @@
       c1: "X",
       c2: "X",
       ss: "ss02",
-      vars: {
-        fontFamily: "Jijoninja Variable, sans-serif",
-        cornoDx: { ml: "70px", fs: "35rem" },
-        cornoSx: { ml: "-600px", fs: "35rem" },
-        corpoX1: { mt: "-350px" },
+      varsDesktop: {
+        fontFamily: "Jijoninja Stronzo, sans-serif",
+        cornoDx: { ml: "20px", fs: "35rem" },
+        cornoSx: { ml: "0px", fs: "35rem" },
+        corpoX1: { mt: "-220px" },
         corpoX2: { mt: "-340px" },
       },
     },
-    // Mostro xx XX ss01:
+    // Mostro xx XX ss01 Lo smile:
     {
-      sx: "x",
-      dx: "x",
-      c1: "X",
-      c2: "X",
+      sx: "s",
+      dx: "s",
+      c1: "O",
+      c2: "O",
       ss: "ss01",
-      vars: {
-        fontFamily: "Jijoninja Variable, sans-serif",
-        cornoDx: { ml: "60px", fs: "35rem" },
-        cornoSx: { ml: "-600px", fs: "35rem" },
-        corpoX1: { mt: "-220px" },
-        corpoX2: { mt: "-330px" },
+      varsDesktop: {
+        fontFamily: "Jijoninja Stronzo, sans-serif",
+        cornoDx: { ml: "-35px", mt: "0px", fs: "35rem" },
+        cornoSx: { ml: "0px", mt: "0px", fs: "35rem" },
+        corpoX1: { mt: "-290px" },
+        corpoX2: { mt: "-480px", transform: "scaleX(-1)" },
       },
     },
     // Mostro yy XX il gatto:
@@ -180,11 +227,11 @@
       c1: "T",
       c2: "T",
       ss: "ss01",
-      vars: {
-        fontFamily: "Jijoninja Variable, sans-serif",
+      varsDesktop: {
+        fontFamily: "Jijoninja Stronzo, sans-serif",
         cornoDx: { ml: "-80px", fs: "35rem" },
-        cornoSx: { ml: "-600px", fs: "35rem" },
-        corpoX1: { mt: "-120px", ml: "200px", transform: "scaleX(-1)" },
+        cornoSx: { ml: "0px", fs: "35rem" },
+        corpoX1: { mt: "-120px", ml: "130px", transform: "scaleX(-1)" },
         corpoX2: { mt: "-480px" },
       },
     },
@@ -195,17 +242,43 @@
       c1: "H",
       c2: "H",
       ss: "ss01",
-      vars: {
-        fontFamily: "Jijoninja Variable, sans-serif",
-        cornoDx: { ml: "-80px", fs: "35rem", transform: "scaleX(-1)" },
-        cornoSx: { ml: "-600px", fs: "35rem", transform: "scaleX(-1)" },
-        corpoX1: { mt: "10px", ml: "200px", transform: "scaleX(-1)" },
+      varsDesktop: {
+        fontFamily: "Jijoninja Stronzo, sans-serif",
+        cornoDx: { ml: "-300px", fs: "35rem", transform: "scaleX(-1)" },
+        cornoSx: { ml: "0px", fs: "35rem", transform: "scaleX(-1)" },
+        corpoX1: { mt: "10px", ml: "270px", transform: "scaleX(-1)" },
         corpoX2: { mt: "-480px" },
       },
     },
-    { sx: "k", dx: "k", c1: "O", c2: "O" },
-    { sx: "l", dx: "l", c1: "O", c2: "O" },
-    { sx: "o", dx: "o", c1: "V", c2: "V" },
+    //Mostro uu UU uuuuuuuuuuhhhhhhhhh!!!!!!
+    {
+      sx: "u",
+      dx: "u",
+      c1: "U",
+      c2: "U",
+      ss: "ss01",
+      varsDesktop: {
+        fontFamily: "Jijoninja Stronzo, sans-serif",
+        cornoDx: { ml: "-70px", fs: "35rem" },
+        cornoSx: { ml: "0px", fs: "35rem" },
+        corpoX1: { mt: "-100px", ml: "-323px", fs: "35rem" },
+        corpoX2: { mt: "-480px", mr: "-323px", transform: "scaleX(-1)", fs: "35rem" },
+      },
+    },
+    {
+      sx: "e",
+      dx: "e",
+      c1: "Y",
+      c2: "Y",
+      ss: "ss03",
+      varsDesktop: {
+        fontFamily: "Jijoninja Stronzo, sans-serif",
+        cornoDx: { ml: "0px", fs: "35rem", transform: "scaleX(-1)" },
+        cornoSx: { ml: "0px", fs: "35rem", transform: "scaleX(-1)" },
+        corpoX1: { mt: "0px", ml: "0px", transform: "scaleX(-1)" },
+        corpoX2: { mt: "-300px" },
+      },
+    },
   ];
 
   // Selettori dei 4 elementi-lettera dentro ogni mostro.
@@ -222,12 +295,56 @@
 
   var instances = [];
 
-  // Applica i parametri opzionali di un mostro (mostro.vars) come CSS
-  // custom properties inline sui SUOI elementi. Non tocca il CSS globale:
-  // ogni mostro porta i propri valori sul proprio nodo DOM, quindi due
-  // mostri con la stessa classe (es. .corpo-x-1) possono avere margin,
-  // font, transform diversi senza collidere tra loro. Se mostro.vars è
-  // assente o una chiave non è specificata, l'elemento cade sul fallback
+  // Sotto questa soglia si applicano i valori di varsMobile al posto (o
+  // in aggiunta) di varsDesktop. Stessa soglia della media query CSS
+  // "@media screen and (max-width: 479px)", tenuta in un solo posto qui
+  // così se la si sposta va cambiata anche lì per restare coerenti.
+  var MOBILE_QUERY = window.matchMedia("(max-width: 479px)");
+
+  // Unisce due gruppi di parametri (es. varsDesktop.corpoX1 e
+  // varsMobile.corpoX1): per ogni chiave presente in "override" quel
+  // valore vince, altrimenti si mantiene quello di "base". Se "override"
+  // è assente, il risultato è semplicemente "base" (eredita tutto).
+  function mergeGroup(base, override) {
+    var result = {};
+    var key;
+    if (base) {
+      for (key in base) {
+        if (base.hasOwnProperty(key)) result[key] = base[key];
+      }
+    }
+    if (override) {
+      for (key in override) {
+        if (override.hasOwnProperty(key)) result[key] = override[key];
+      }
+    }
+    return result;
+  }
+
+  // Calcola i parametri effettivi di un mostro per il breakpoint corrente:
+  // fuori dal mobile è semplicemente varsDesktop; sotto i 479px ogni
+  // gruppo (cornoSx, cornoDx, corpoX1, corpoX2) viene unito con l'eventuale
+  // corrispondente gruppo in varsMobile, chiave per chiave.
+  function getEffectiveVars(mostro, isMobile) {
+    var desktop = mostro.varsDesktop || {};
+    if (!isMobile) return desktop;
+
+    var mobile = mostro.varsMobile || {};
+    return {
+      fontFamily: mobile.fontFamily != null ? mobile.fontFamily : desktop.fontFamily,
+      cornoSx: mergeGroup(desktop.cornoSx, mobile.cornoSx),
+      cornoDx: mergeGroup(desktop.cornoDx, mobile.cornoDx),
+      corpoX1: mergeGroup(desktop.corpoX1, mobile.corpoX1),
+      corpoX2: mergeGroup(desktop.corpoX2, mobile.corpoX2),
+    };
+  }
+
+  // Applica i parametri effettivi (già uniti in base al breakpoint) come
+  // CSS custom properties inline sui 4 elementi-lettera del mostro. Non
+  // tocca il CSS globale: ogni mostro porta i propri valori sul proprio
+  // nodo DOM, quindi due mostri con la stessa classe (es. .corpo-x-1)
+  // possono avere margin, font, transform diversi senza collidere tra
+  // loro. Se una chiave non è specificata, l'elemento cade sul fallback
   // definito nel CSS (--corpo-x1-mt, ecc.) e si comporta come il mostro
   // originale.
   function applyVars(container, vars) {
@@ -240,23 +357,45 @@
       });
     }
 
-    var cornoDx = container.querySelector(".corno-destro");
-    if (cornoDx && vars.cornoDx) {
-      if (vars.cornoDx.ml != null) {
-        cornoDx.style.setProperty("--corno-dx-ml", vars.cornoDx.ml);
+    var cornoSx = container.querySelector(".corno-sinistro");
+    if (cornoSx && vars.cornoSx) {
+      if (vars.cornoSx.mt != null) {
+        cornoSx.style.setProperty("--corno-sx-mt", vars.cornoSx.mt);
       }
-      // Nota: cornoDx.transform non è un custom property CSS, ma viene
-      // comunque applicato inline come style.transform, così da poter
-      // speculare il corno destro senza toccare il CSS globale.
-      if (vars.cornoDx.transform != null) {
-        cornoDx.style.setProperty("--corno-dx-transform", vars.cornoDx.transform);
+      if (vars.cornoSx.ml != null) {
+        cornoSx.style.setProperty("--corno-sx-ml", vars.cornoSx.ml);
+      }
+      if (vars.cornoSx.fs != null) {
+        cornoSx.style.setProperty("--corno-sx-fs", vars.cornoSx.fs);
+      }
+      if (vars.cornoSx.lh != null) {
+        cornoSx.style.setProperty("--corno-sx-lh", vars.cornoSx.lh);
+      }
+      // Nota: cornoSx/cornoDx.transform non sono custom property CSS
+      // "pure" in senso stretto, ma vengono comunque applicate così, e
+      // si SOMMANO alla rotazione base già presente nel CSS (non la
+      // sostituiscono): usarle per scaleX(-1), non per rotazioni diverse.
+      if (vars.cornoSx.transform != null) {
+        cornoSx.style.setProperty("--corno-sx-transform", vars.cornoSx.transform);
       }
     }
 
-    var cornoSx = container.querySelector(".corno-sinistro");
-    if (cornoSx && vars.cornoSx) {
-      if (vars.cornoSx.transform != null) {
-        cornoSx.style.setProperty("--corno-sx-transform", vars.cornoSx.transform);
+    var cornoDx = container.querySelector(".corno-destro");
+    if (cornoDx && vars.cornoDx) {
+      if (vars.cornoDx.mt != null) {
+        cornoDx.style.setProperty("--corno-dx-mt", vars.cornoDx.mt);
+      }
+      if (vars.cornoDx.ml != null) {
+        cornoDx.style.setProperty("--corno-dx-ml", vars.cornoDx.ml);
+      }
+      if (vars.cornoDx.fs != null) {
+        cornoDx.style.setProperty("--corno-dx-fs", vars.cornoDx.fs);
+      }
+      if (vars.cornoDx.lh != null) {
+        cornoDx.style.setProperty("--corno-dx-lh", vars.cornoDx.lh);
+      }
+      if (vars.cornoDx.transform != null) {
+        cornoDx.style.setProperty("--corno-dx-transform", vars.cornoDx.transform);
       }
     }
 
@@ -271,6 +410,9 @@
       if (vars.corpoX1.fs != null) {
         corpoX1.style.setProperty("--corpo-x1-fs", vars.corpoX1.fs);
       }
+      if (vars.corpoX1.lh != null) {
+        corpoX1.style.setProperty("--corpo-x1-lh", vars.corpoX1.lh);
+      }
       if (vars.corpoX1.transform != null) {
         corpoX1.style.setProperty("--corpo-x1-transform", vars.corpoX1.transform);
       }
@@ -284,13 +426,30 @@
       if (vars.corpoX2.mr != null) {
         corpoX2.style.setProperty("--corpo-x2-mr", vars.corpoX2.mr);
       }
-      if (vars.corpoX2.transform != null) {
-        corpoX2.style.setProperty("--corpo-x2-transform", vars.corpoX2.transform);
-      }
       if (vars.corpoX2.fs != null) {
         corpoX2.style.setProperty("--corpo-x2-fs", vars.corpoX2.fs);
       }
+      if (vars.corpoX2.lh != null) {
+        corpoX2.style.setProperty("--corpo-x2-lh", vars.corpoX2.lh);
+      }
+      if (vars.corpoX2.transform != null) {
+        corpoX2.style.setProperty("--corpo-x2-transform", vars.corpoX2.transform);
+      }
     }
+  }
+
+  // Ricalcola e riapplica i parametri effettivi (desktop o mobile a
+  // seconda del breakpoint corrente) su TUTTI i mostri già costruiti.
+  // Chiamata all'avvio e ogni volta che MOBILE_QUERY viene attraversata.
+  function applyResponsiveVars() {
+    var isMobile = MOBILE_QUERY.matches;
+    var containers = document.querySelectorAll("[data-mostro-id]");
+    containers.forEach(function (container) {
+      var index = parseInt(container.getAttribute("data-mostro-id"), 10) - 1;
+      var mostro = MOSTRI[index];
+      if (!mostro) return;
+      applyVars(container, getEffectiveVars(mostro, isMobile));
+    });
   }
 
   // Costruisce il markup di un mostro con le stesse classi/struttura
@@ -335,8 +494,6 @@
 
     container.appendChild(oriz);
     container.appendChild(vert);
-
-    applyVars(container, mostro.vars);
 
     return container;
   }
@@ -394,6 +551,7 @@
 
   function init() {
     buildMonsters();
+    applyResponsiveVars();
 
     var containers = document.querySelectorAll("[data-mostro-id]");
     containers.forEach(function (container) {
@@ -402,6 +560,16 @@
     });
 
     if (instances.length === 0) return;
+
+    // Quando si attraversa la soglia dei 479px (es. rotazione del device,
+    // o resize della finestra su desktop), ricalcola i parametri di TUTTI
+    // i mostri passando da varsDesktop a varsMobile o viceversa.
+    if (typeof MOBILE_QUERY.addEventListener === "function") {
+      MOBILE_QUERY.addEventListener("change", applyResponsiveVars);
+    } else if (typeof MOBILE_QUERY.addListener === "function") {
+      // Fallback per browser meno recenti (Safari < 14).
+      MOBILE_QUERY.addListener(applyResponsiveVars);
+    }
 
     window.addEventListener("scroll", updateTargets, { passive: true });
     window.addEventListener("resize", updateTargets);
