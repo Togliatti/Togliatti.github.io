@@ -95,18 +95,16 @@
       c1: "X",
       c2: "X",
       ss: "ss01", // mantide originale
-      // varsMobile riproduce esattamente i valori che prima di questa
-      // modifica erano hardcoded in CSS sotto i 479px: nessun cambiamento
-      // visivo per questo mostro rispetto a prima.
+      // Niente varsMobile: prima riproduceva a mano i valori mobile
+      // hardcoded nel vecchio CSS (font-size ridotto, margini
+      // ricalcolati), ma con .mostro-scale-wrapper che ora usa "zoom"
+      // (non "transform: scale") il rimpicciolimento sotto i breakpoint
+      // è automatico e proporzionalmente corretto per tutti i mostri,
+      // mantide compreso — niente più bisogno di una riduzione manuale
+      // duplicata (che tra l'altro sommandosi allo zoom lo rendeva
+      // eccessivamente piccolo).
       varsDesktop: {
         fontFamily: "Jijoninja Stronzo, sans-serif",
-      },
-      varsMobile: {
-        fontFamily: "Jijoninja Stronzo, sans-serif",
-        cornoSx: { mt: "-117px", fs: "18rem" },
-        cornoDx: { mt: "-117px", ml: "-47px", fs: "18rem" },
-        corpoX1: { mt: "0px", fs: "15rem", lh: "15rem" },
-        corpoX2: { mt: "-165px", fs: "15rem", lh: "15rem" },
       },
     },
     // Mostro ll AA Il ginnico che fa compassione

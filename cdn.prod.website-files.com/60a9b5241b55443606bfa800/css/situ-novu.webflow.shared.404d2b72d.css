@@ -2066,9 +2066,20 @@ textarea.w-input {
      senza bisogno di ricalcolare margin/font-size per ogni mostro.
      Il valore viene scritto da mostri-grow.js in base al breakpoint
      corrente (vedi SCALE_BREAKPOINTS/applyResponsiveScale); di default
-     (desktop pieno, >991px) resta 1 = nessun rimpicciolimento. */
-  transform: scale(var(--mostro-scale, 1));
-  transform-origin: top center;
+     (desktop pieno, >991px) resta 1 = nessun rimpicciolimento.
+     Usiamo "zoom" e non "transform: scale()": a differenza di transform,
+     zoom rimpicciolisce anche la scatola di LAYOUT (non solo il disegno),
+     quindi .container-mantide centra/clippa il mostro già rimpicciolito
+     e non più quello a piena taglia. Con transform, invece, il
+     contenitore continuava a ragionare sulla taglia originale e i mostri
+     più grandi del mantide venivano tagliati/spostati (bug osservato
+     sotto i 479px su tutti i mostri tranne il mantide, l'unico che aveva
+     anche una riduzione via font-size che agisce sul layout). Supporto
+     browser: Chrome/Edge/Opera/Samsung sempre, Safari da sempre, Firefox
+     dalla versione 126 (metà 2024) — su Firefox più vecchio (raro ormai)
+     zoom viene semplicemente ignorato e il mostro resta a piena taglia,
+     nessun errore. */
+  zoom: var(--mostro-scale, 1);
 }
 
 .slider-3-crossfade {
