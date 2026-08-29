@@ -1073,16 +1073,16 @@ textarea.w-input {
 }
 
 @font-face {
-  font-family: Jijoninja Variable;
-  src: url("../JijoninjaVariableVF.ttf") format("truetype");
+  font-family: Jijoninja Stronzo;
+  src: url("../JijoninjaStronzoVF.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: Jijoninja Stronzo;
-  src: url("../JijoninjaStronzoVF.ttf") format("truetype");
+  font-family: Jijoninja Variable;
+  src: url("../JijoninjaVariableVF.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -2043,11 +2043,32 @@ textarea.w-input {
 }
 
 .container-mantide {
-  flex-flow: wrap;
+  /* Ora contiene un solo figlio diretto (.mostro-scale-wrapper): queste
+     regole servono solo a centrarlo nel proprio riquadro. L'arrangiamento
+     di corna/corpo (flex-flow/justify-content/align-items) è stato
+     spostato su .mostro-scale-wrapper, così può restare invariato anche
+     quando il wrapper viene rimpicciolito con transform: scale(). */
+  display: flex;
   justify-content: center;
   align-items: flex-start;
   margin-bottom: 200px; /* Spazio tra la mantide e il resto della pagina */
+}
+
+.mostro-scale-wrapper {
+  /* Arrangiamento di corna (.flex-oriz-mantide) + corpo
+     (.flex-vert-mantide), ereditato da quello che prima era su
+     .container-mantide. */
   display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  /* Rimpicciolisce l'intero mostro in blocco, proporzioni comprese,
+     senza bisogno di ricalcolare margin/font-size per ogni mostro.
+     Il valore viene scritto da mostri-grow.js in base al breakpoint
+     corrente (vedi SCALE_BREAKPOINTS/applyResponsiveScale); di default
+     (desktop pieno, >991px) resta 1 = nessun rimpicciolimento. */
+  transform: scale(var(--mostro-scale, 1));
+  transform-origin: top center;
 }
 
 .slider-3-crossfade {
@@ -2675,9 +2696,20 @@ textarea.w-input {
     margin-top: -180px;
   }
 
-.container-mantide {
+.mostro-scale-wrapper {
+    /* Arrangiamento a colonna (corna sopra, corpo sotto) che prima era
+       su .container-mantide: qui vive insieme al resto del layout
+       specifico del mostro, il transform: scale() resta quello
+       definito nella regola base (il valore lo aggiorna il JS). */
     flex-flow: column;
     justify-content: flex-start;
+    align-items: center;
+  }
+
+.container-mantide {
+    /* Ora ha un solo figlio diretto (.mostro-scale-wrapper): lo
+       centra nel riquadro, non arrangia più nulla direttamente. */
+    justify-content: center;
     align-items: center;
     width: 100vw;
     height: 120vw;

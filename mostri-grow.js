@@ -295,11 +295,51 @@
 
   var instances = [];
 
+  // --- Scala uniforme a 3 breakpoint --------------------------------
+  // Rimpicciolisce l'INTERO mostro (corna + corpo insieme) con
+  // transform: scale(), applicato su un wrapper che avvolge entrambi.
+  // A differenza di mt/ml/fs, che agiscono PRIMA dell'impaginazione (e
+  // quindi vanno ricalibrati mostro per mostro), scale agisce DOPO: che
+  // il mostro sia stato costruito con questo o quel margin-left non ha
+  // importanza, si rimpicciolisce comunque in blocco, proporzioni
+  // comprese. Serve quindi UN SOLO fattore di scala per breakpoint, non
+  // uno per mostro (eccezioni puntuali per i mostri più larghi si
+  // gestiscono comunque a parte, con mt/ml, come deciso).
+  // Valori di partenza, da ricalibrare guardando il mostro più largo a
+  // ciascuna soglia:
+  var SCALE_BREAKPOINTS = [
+    { query: window.matchMedia("(max-width: 479px)"), scale: 0.55 },
+    { query: window.matchMedia("(max-width: 767px)"), scale: 0.7 },
+    { query: window.matchMedia("(max-width: 991px)"), scale: 0.85 },
+  ];
+
+  // Ordine dal più stretto al più largo: il primo che corrisponde vince
+  // (sotto i 479px anche "max-width: 767px" risulta vero, ma non deve
+  // prevalere sul valore pensato apposta per il mobile).
+  function getCurrentScale() {
+    for (var i = 0; i < SCALE_BREAKPOINTS.length; i++) {
+      if (SCALE_BREAKPOINTS[i].query.matches) return SCALE_BREAKPOINTS[i].scale;
+    }
+    return 1;
+  }
+
+  // Riapplica il fattore di scala corrente al wrapper di ogni mostro già
+  // costruito. Chiamata all'avvio e ogni volta che uno dei tre breakpoint
+  // viene attraversato, in entrambe le direzioni.
+  function applyResponsiveScale() {
+    var scale = getCurrentScale();
+    var wrappers = document.querySelectorAll(".mostro-scale-wrapper");
+    wrappers.forEach(function (wrapper) {
+      wrapper.style.setProperty("--mostro-scale", scale);
+    });
+  }
+  // --------------------------------------------------------------------
+
   // Sotto questa soglia si applicano i valori di varsMobile al posto (o
-  // in aggiunta) di varsDesktop. Stessa soglia della media query CSS
-  // "@media screen and (max-width: 479px)", tenuta in un solo posto qui
-  // così se la si sposta va cambiata anche lì per restare coerenti.
-  var MOBILE_QUERY = window.matchMedia("(max-width: 479px)");
+  // in aggiunta) di varsDesktop. È lo stesso oggetto matchMedia usato
+  // come primo scalino di SCALE_BREAKPOINTS, così la soglia dei 479px
+  // vive in un solo posto.
+  var MOBILE_QUERY = SCALE_BREAKPOINTS[0].query;
 
   // Unisce due gruppi di parametri (es. varsDesktop.corpoX1 e
   // varsMobile.corpoX1): per ogni chiave presente in "override" quel
@@ -339,102 +379,77 @@
     };
   }
 
+  // Imposta una custom property se il valore è specificato, altrimenti la
+  // rimuove esplicitamente. Necessario per attraversare i breakpoint in
+  // entrambe le direzioni: senza la remove, un valore scritto per il
+  // mobile restava appiccicato inline anche tornando sopra i 479px
+  // (bug: serviva un refresh per tornare "normale").
+  function setOrRemove(el, prop, value) {
+    if (value != null) {
+      el.style.setProperty(prop, value);
+    } else {
+      el.style.removeProperty(prop);
+    }
+  }
+
   // Applica i parametri effettivi (già uniti in base al breakpoint) come
   // CSS custom properties inline sui 4 elementi-lettera del mostro. Non
   // tocca il CSS globale: ogni mostro porta i propri valori sul proprio
   // nodo DOM, quindi due mostri con la stessa classe (es. .corpo-x-1)
   // possono avere margin, font, transform diversi senza collidere tra
-  // loro. Se una chiave non è specificata, l'elemento cade sul fallback
-  // definito nel CSS (--corpo-x1-mt, ecc.) e si comporta come il mostro
-  // originale.
+  // loro. Ogni proprietà viene sempre impostata O rimossa (mai lasciata
+  // "come stava prima"), così il risultato è identico indipendentemente
+  // da quale fosse il breakpoint precedente.
   function applyVars(container, vars) {
-    if (!vars) return;
+    vars = vars || {};
 
-    if (vars.fontFamily) {
-      LETTER_SELECTORS.forEach(function (sel) {
-        var el = container.querySelector(sel);
-        if (el) el.style.setProperty("--mostro-font", vars.fontFamily);
-      });
-    }
+    LETTER_SELECTORS.forEach(function (sel) {
+      var el = container.querySelector(sel);
+      if (el) setOrRemove(el, "--mostro-font", vars.fontFamily);
+    });
 
     var cornoSx = container.querySelector(".corno-sinistro");
-    if (cornoSx && vars.cornoSx) {
-      if (vars.cornoSx.mt != null) {
-        cornoSx.style.setProperty("--corno-sx-mt", vars.cornoSx.mt);
-      }
-      if (vars.cornoSx.ml != null) {
-        cornoSx.style.setProperty("--corno-sx-ml", vars.cornoSx.ml);
-      }
-      if (vars.cornoSx.fs != null) {
-        cornoSx.style.setProperty("--corno-sx-fs", vars.cornoSx.fs);
-      }
-      if (vars.cornoSx.lh != null) {
-        cornoSx.style.setProperty("--corno-sx-lh", vars.cornoSx.lh);
-      }
+    if (cornoSx) {
+      var vSx = vars.cornoSx || {};
+      setOrRemove(cornoSx, "--corno-sx-mt", vSx.mt);
+      setOrRemove(cornoSx, "--corno-sx-ml", vSx.ml);
+      setOrRemove(cornoSx, "--corno-sx-fs", vSx.fs);
+      setOrRemove(cornoSx, "--corno-sx-lh", vSx.lh);
       // Nota: cornoSx/cornoDx.transform non sono custom property CSS
       // "pure" in senso stretto, ma vengono comunque applicate così, e
       // si SOMMANO alla rotazione base già presente nel CSS (non la
       // sostituiscono): usarle per scaleX(-1), non per rotazioni diverse.
-      if (vars.cornoSx.transform != null) {
-        cornoSx.style.setProperty("--corno-sx-transform", vars.cornoSx.transform);
-      }
+      setOrRemove(cornoSx, "--corno-sx-transform", vSx.transform);
     }
 
     var cornoDx = container.querySelector(".corno-destro");
-    if (cornoDx && vars.cornoDx) {
-      if (vars.cornoDx.mt != null) {
-        cornoDx.style.setProperty("--corno-dx-mt", vars.cornoDx.mt);
-      }
-      if (vars.cornoDx.ml != null) {
-        cornoDx.style.setProperty("--corno-dx-ml", vars.cornoDx.ml);
-      }
-      if (vars.cornoDx.fs != null) {
-        cornoDx.style.setProperty("--corno-dx-fs", vars.cornoDx.fs);
-      }
-      if (vars.cornoDx.lh != null) {
-        cornoDx.style.setProperty("--corno-dx-lh", vars.cornoDx.lh);
-      }
-      if (vars.cornoDx.transform != null) {
-        cornoDx.style.setProperty("--corno-dx-transform", vars.cornoDx.transform);
-      }
+    if (cornoDx) {
+      var vDx = vars.cornoDx || {};
+      setOrRemove(cornoDx, "--corno-dx-mt", vDx.mt);
+      setOrRemove(cornoDx, "--corno-dx-ml", vDx.ml);
+      setOrRemove(cornoDx, "--corno-dx-fs", vDx.fs);
+      setOrRemove(cornoDx, "--corno-dx-lh", vDx.lh);
+      setOrRemove(cornoDx, "--corno-dx-transform", vDx.transform);
     }
 
     var corpoX1 = container.querySelector(".corpo-x-1");
-    if (corpoX1 && vars.corpoX1) {
-      if (vars.corpoX1.mt != null) {
-        corpoX1.style.setProperty("--corpo-x1-mt", vars.corpoX1.mt);
-      }
-      if (vars.corpoX1.ml != null) {
-        corpoX1.style.setProperty("--corpo-x1-ml", vars.corpoX1.ml);
-      }
-      if (vars.corpoX1.fs != null) {
-        corpoX1.style.setProperty("--corpo-x1-fs", vars.corpoX1.fs);
-      }
-      if (vars.corpoX1.lh != null) {
-        corpoX1.style.setProperty("--corpo-x1-lh", vars.corpoX1.lh);
-      }
-      if (vars.corpoX1.transform != null) {
-        corpoX1.style.setProperty("--corpo-x1-transform", vars.corpoX1.transform);
-      }
+    if (corpoX1) {
+      var vX1 = vars.corpoX1 || {};
+      setOrRemove(corpoX1, "--corpo-x1-mt", vX1.mt);
+      setOrRemove(corpoX1, "--corpo-x1-ml", vX1.ml);
+      setOrRemove(corpoX1, "--corpo-x1-fs", vX1.fs);
+      setOrRemove(corpoX1, "--corpo-x1-lh", vX1.lh);
+      setOrRemove(corpoX1, "--corpo-x1-transform", vX1.transform);
     }
 
     var corpoX2 = container.querySelector(".corpo-x-2");
-    if (corpoX2 && vars.corpoX2) {
-      if (vars.corpoX2.mt != null) {
-        corpoX2.style.setProperty("--corpo-x2-mt", vars.corpoX2.mt);
-      }
-      if (vars.corpoX2.mr != null) {
-        corpoX2.style.setProperty("--corpo-x2-mr", vars.corpoX2.mr);
-      }
-      if (vars.corpoX2.fs != null) {
-        corpoX2.style.setProperty("--corpo-x2-fs", vars.corpoX2.fs);
-      }
-      if (vars.corpoX2.lh != null) {
-        corpoX2.style.setProperty("--corpo-x2-lh", vars.corpoX2.lh);
-      }
-      if (vars.corpoX2.transform != null) {
-        corpoX2.style.setProperty("--corpo-x2-transform", vars.corpoX2.transform);
-      }
+    if (corpoX2) {
+      var vX2 = vars.corpoX2 || {};
+      setOrRemove(corpoX2, "--corpo-x2-mt", vX2.mt);
+      setOrRemove(corpoX2, "--corpo-x2-mr", vX2.mr);
+      setOrRemove(corpoX2, "--corpo-x2-fs", vX2.fs);
+      setOrRemove(corpoX2, "--corpo-x2-lh", vX2.lh);
+      setOrRemove(corpoX2, "--corpo-x2-transform", vX2.transform);
     }
   }
 
@@ -492,8 +507,16 @@
     vert.appendChild(c1);
     vert.appendChild(c2);
 
-    container.appendChild(oriz);
-    container.appendChild(vert);
+    // Wrapper su cui applicare transform: scale() ai breakpoint stretti.
+    // Avvolge corna+corpo insieme così si rimpiccioliscono in blocco,
+    // mantenendo le proporzioni relative qualunque sia la costruzione
+    // interna del mostro (vedi SCALE_BREAKPOINTS/applyResponsiveScale).
+    var scaleWrapper = document.createElement("div");
+    scaleWrapper.className = "mostro-scale-wrapper";
+    scaleWrapper.appendChild(oriz);
+    scaleWrapper.appendChild(vert);
+
+    container.appendChild(scaleWrapper);
 
     return container;
   }
@@ -549,9 +572,20 @@
     };
   }
 
+  // Registra un listener di cambio breakpoint compatibile anche con
+  // Safari < 14 (che non supporta addEventListener su MediaQueryList).
+  function onBreakpointChange(mq, fn) {
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", fn);
+    } else if (typeof mq.addListener === "function") {
+      mq.addListener(fn);
+    }
+  }
+
   function init() {
     buildMonsters();
     applyResponsiveVars();
+    applyResponsiveScale();
 
     var containers = document.querySelectorAll("[data-mostro-id]");
     containers.forEach(function (container) {
@@ -564,12 +598,15 @@
     // Quando si attraversa la soglia dei 479px (es. rotazione del device,
     // o resize della finestra su desktop), ricalcola i parametri di TUTTI
     // i mostri passando da varsDesktop a varsMobile o viceversa.
-    if (typeof MOBILE_QUERY.addEventListener === "function") {
-      MOBILE_QUERY.addEventListener("change", applyResponsiveVars);
-    } else if (typeof MOBILE_QUERY.addListener === "function") {
-      // Fallback per browser meno recenti (Safari < 14).
-      MOBILE_QUERY.addListener(applyResponsiveVars);
-    }
+    onBreakpointChange(MOBILE_QUERY, applyResponsiveVars);
+
+    // La scala invece va ricalcolata ad OGNI attraversamento di uno dei
+    // tre breakpoint (479/767/991), in entrambe le direzioni: restringere
+    // e riallargare la finestra deve sempre lasciare il fattore corretto,
+    // mai un valore rimasto appiccicato dal breakpoint precedente.
+    SCALE_BREAKPOINTS.forEach(function (bp) {
+      onBreakpointChange(bp.query, applyResponsiveScale);
+    });
 
     window.addEventListener("scroll", updateTargets, { passive: true });
     window.addEventListener("resize", updateTargets);
