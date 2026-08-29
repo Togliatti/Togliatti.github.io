@@ -2684,53 +2684,6 @@ textarea.w-input {
 .div-block-bottom-spacer {
     height: 5vh;
   }
-
-/* corno-sinistro/destro, corpo-x-1/x-2: margin-top/left/right, font-size e
-   line-height NON sono più hardcoded qui. Sono gestiti per-mostro da
-   mostri-grow.js tramite le custom property (--corno-sx-mt, --corpo-x1-fs,
-   ecc.), lette da matchMedia("(max-width: 479px)") e scritte via
-   varsMobile. Prima di questa modifica questi valori erano fissi e
-   sovrascrivevano silenziosamente il posizionamento di OGNI mostro con i
-   valori tarati solo sul mantide originale (l/l X/X): da qui il bug per
-   cui sotto i 479px i mostri con vars personalizzate si disallineavano. */
-.corno-sinistro {
-    text-align: left;
-  }
-
-.corno-destro {
-    text-align: left;
-  }
-
-.flex-vert-mantide {
-    justify-content: flex-start;
-    align-items: center;
-    margin-top: -180px;
-  }
-
-.mostro-scale-wrapper {
-    /* Arrangiamento a colonna (corna sopra, corpo sotto) che prima era
-       su .container-mantide: qui vive insieme al resto del layout
-       specifico del mostro, il transform: scale() resta quello
-       definito nella regola base (il valore lo aggiorna il JS). */
-    flex-flow: column;
-    justify-content: flex-start;
-    align-items: center;
-  }
-
-.container-mantide {
-    /* Ora ha un solo figlio diretto (.mostro-scale-wrapper): lo
-       centra nel riquadro, non arrangia più nulla direttamente. */
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 120vw;
-    margin-top: -80px;
-    margin-bottom: 50px;
-    display: flex;
-    /*position: sticky; commentato in attesa di capire a che cazzo serve se non a fare casino sotto i 479px*/
-    top: 220px;
-    overflow: clip;
-  }
 }
 
 .grid-columns {
