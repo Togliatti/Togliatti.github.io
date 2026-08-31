@@ -104,7 +104,7 @@
       // duplicata (che tra l'altro sommandosi allo zoom lo rendeva
       // eccessivamente piccolo).
       varsDesktop: {
-        fontFamily: "Jijoninja Stronzo, sans-serif",
+        fontFamily: "Jijoninja Variable, sans-serif",
       },
     },
     // Mostro ll AA Il ginnico che fa compassione
@@ -205,17 +205,17 @@
     },
     // Mostro xx XX ss01 Lo smile:
     {
-      sx: "s",
-      dx: "s",
-      c1: "O",
-      c2: "O",
+      sx: "o",
+      dx: "o",
+      c1: "Z",
+      c2: "Z",
       ss: "ss01",
       varsDesktop: {
         fontFamily: "Jijoninja Stronzo, sans-serif",
         cornoDx: { ml: "-35px", mt: "0px", fs: "35rem" },
         cornoSx: { ml: "0px", mt: "0px", fs: "35rem" },
-        corpoX1: { mt: "-290px" },
-        corpoX2: { mt: "-480px", transform: "scaleX(-1)" },
+        corpoX1: { mt: "-150px", fs: "35rem" },
+        corpoX2: { mt: "-480px", fs: "35rem", transform: "scaleX(-1)" },
       },
     },
     // Mostro yy XX il gatto:
@@ -242,7 +242,7 @@
       ss: "ss01",
       varsDesktop: {
         fontFamily: "Jijoninja Stronzo, sans-serif",
-        cornoDx: { ml: "-300px", fs: "35rem", transform: "scaleX(-1)" },
+        cornoDx: { ml: "-270px", fs: "35rem", transform: "scaleX(-1)" },
         cornoSx: { ml: "0px", fs: "35rem", transform: "scaleX(-1)" },
         corpoX1: { mt: "10px", ml: "270px", transform: "scaleX(-1)" },
         corpoX2: { mt: "-480px" },
@@ -259,8 +259,8 @@
         fontFamily: "Jijoninja Stronzo, sans-serif",
         cornoDx: { ml: "-70px", fs: "35rem" },
         cornoSx: { ml: "0px", fs: "35rem" },
-        corpoX1: { mt: "-100px", ml: "-323px", fs: "35rem" },
-        corpoX2: { mt: "-480px", mr: "-323px", transform: "scaleX(-1)", fs: "35rem" },
+        corpoX1: { mt: "-120px", ml: "-276px", fs: "30rem" },
+        corpoX2: { mt: "-480px", mr: "-323px", transform: "scaleX(-1)", fs: "30rem" },
       },
     },
     {
@@ -306,8 +306,8 @@
   // Valori di partenza, da ricalibrare guardando il mostro più largo a
   // ciascuna soglia:
   var SCALE_BREAKPOINTS = [
-    { query: window.matchMedia("(max-width: 479px)"), scale: 0.55 },
-    { query: window.matchMedia("(max-width: 767px)"), scale: 0.7 },
+    { query: window.matchMedia("(max-width: 479px)"), scale: 0.40 },
+    { query: window.matchMedia("(max-width: 767px)"), scale: 0.6 },
     { query: window.matchMedia("(max-width: 991px)"), scale: 0.85 },
   ];
 
