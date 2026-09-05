@@ -138,8 +138,8 @@
         fontFamily: "Jijoninja Stronzo, sans-serif",
         cornoDx: { ml: "50px", transform: "scaleX(-1)" },
         cornoSx: { transform: "scaleX(-1)" },
-        corpoX1: { mt: "50px", ml: "-390px", fs: "35rem" },
-        corpoX2: { mt: "-480px", mr: "-390px", transform: "scaleX(-1)", fs: "35rem" },
+        corpoX1: { mt: "5px", ml: "-390px", fs: "30rem" },
+        corpoX2: { mt: "-480px", mr: "-390px", transform: "scaleX(-1)", fs: "30rem" },
       },
     },
     // Mostro ee XX ss02:
@@ -153,8 +153,8 @@
         fontFamily: "Jijoninja Stronzo, sans-serif",
         cornoDx: { ml: "-35px", transform: "scaleX(-1)" },
         cornoSx: { transform: "scaleX(-1)" },
-        corpoX1: { mt: "-90px" },
-        corpoX2: { mt: "-300px" },
+        corpoX1: { mt: "-70px" },
+        corpoX2: { mt: "-330px" },
       },
     },
     // Mostro dd XX ss02:
